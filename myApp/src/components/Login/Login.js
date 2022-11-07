@@ -16,9 +16,7 @@ class Login extends Component{
         .then((response) => {
             this.setState({loggedIn: true});
         })
-        .catch(error => {
-            this.setState({error: 'Credenciales invalidas.'})
-        })
+        .catch(error => console.log(error))
     }
 
     render(){
@@ -46,3 +44,5 @@ class Login extends Component{
         )
     }
     }
+
+export default Login
