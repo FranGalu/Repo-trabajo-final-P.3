@@ -14,7 +14,7 @@ class Login extends Component{
     login(email, pass){
         auth.signInWithEmailAndPassword(email, pass)
         .then((response) => {
-            this.setState({loggedIn: true});
+            this.props.navigation.navigate('TabNavigation');
         })
         .catch(error => console.log(error))
     }
@@ -24,6 +24,7 @@ class Login extends Component{
             <View>
                 <Text>Login</Text>
                 <TextInput
+                style={styles.input}
                 keyboardType ='email-address'
                 placeholder = 'email'
                 onChangeText = {text => this.setState({email:text})}
@@ -31,6 +32,7 @@ class Login extends Component{
                 />
 
                 <TextInput
+                style={styles.input}
                 keyboardType = 'default'
                 placeholder = 'password'
                 onChangeText = {text => this.setState({pass:text})}
@@ -44,5 +46,11 @@ class Login extends Component{
         )
     }
     }
+    
+    const styles = StyleSheet.create({
+        input:{
+            borderWidth:1
+        }
+    })
 
 export default Login
