@@ -20,6 +20,7 @@ class Login extends Component{
     }
 
     render(){
+        console.log(this.props);
         return(
             <View>
                 <Text>Login</Text>
@@ -37,11 +38,13 @@ class Login extends Component{
                 placeholder = 'password'
                 onChangeText = {text => this.setState({pass:text})}
                 value = {this.state.pass}
+                secureTextEntry={true}
                 />
-
+            <View>
                 <TouchableOpacity onPress = {()=> this.login(this.state.email, this.state.pass)}>
                     <Text>Login</Text>
                 </TouchableOpacity>
+            </View>
             </View>
         )
     }

@@ -1,22 +1,22 @@
 import React from 'react'
+import {NavigationContainer} from '@react-navigation/native'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-import {FontAwesome} from '@expo/vector-icons'
-import perfil from '../screens/Perfil/Perfil'
+import { Ionicons } from '@expo/vector-icons'
 import Home from '../screens/Home/Home'
+import HomeNavigation from './HomeNavigation'
 const Tab = createBottomTabNavigator()
 
-function TabNavigation(){
+export default function TabNavigation(){
     return(
         <Tab.Navigator>
-            <Tab.Screen
-            name='Home'
-            component={Home}
+            <Tab.Screen 
+            name='HomeNavigation' 
+            component={HomeNavigation}
             options={{
-                tabBarIcon: () => <FontAwesome name='home' size={32} color='salmon'/>
+                tabBarIcon: () => <Ionicons name="happy" size={24} color="black" />,
+                headerShown:false
             }}
             />
         </Tab.Navigator>
     )
 }
-
-export default TabNavigation

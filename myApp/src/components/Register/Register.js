@@ -6,8 +6,8 @@ class Register extends Component{
     constructor(props){
         super(props)
         this.state={
-            input1='',
-            input2='',
+            input1:'',
+            input2:'',
         }
     }
 
