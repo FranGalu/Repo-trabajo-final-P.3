@@ -12,7 +12,7 @@ class Perfil extends Component {
             allComments: []
         }
     }
-
+//funciona una vez que enganchemos los comentarios
     componentDidMount(){
         db.collections('posts').onSnapshot(docs =>{
             let comments = []
@@ -27,7 +27,7 @@ class Perfil extends Component {
             })
         }) 
 
-        
+
     }
 
     signOut(){
