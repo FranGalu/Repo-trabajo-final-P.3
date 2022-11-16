@@ -1,10 +1,10 @@
 import React from 'react'
 import {NavigationContainer} from '@react-navigation/native'
-import {createNaviteStackNavigator} from '@react-navigation/native-stack'
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import TabNavigation from './TabNavigation'
 import LoginScreen from '../screens/Login/LoginScreen'
 import RegisterScreen from '../screens/Register/RegisterScreen'
-const Stack = createNaviteStackNavigator()
+const Stack = createNativeStackNavigator();
 
 function MainNavigation(){
     return(

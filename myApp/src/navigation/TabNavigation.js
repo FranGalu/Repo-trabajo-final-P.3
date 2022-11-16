@@ -1,9 +1,8 @@
 import React from 'react'
-import {NavigationContainer} from '@react-navigation/native'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-import { Ionicons } from '@expo/vector-icons'
-import Home from '../screens/Home/Home'
+import { FontAwesome } from '@expo/vector-icons'; 
 import HomeNavigation from './HomeNavigation'
+import Perfil from '../screens/Perfil/Perfil'
 const Tab = createBottomTabNavigator()
 
 export default function TabNavigation(){
@@ -13,10 +12,17 @@ export default function TabNavigation(){
             name='HomeNavigation' 
             component={HomeNavigation}
             options={{
-                tabBarIcon: () => <Ionicons name="happy" size={24} color="black" />,
+                tabBarIcon: () => <FontAwesome name="home" size={24} color="black" />,
                 headerShown:false
             }}
             />
+            <Tab.Screen
+            name='Perfil'
+            component={Perfil}
+            options={{
+            tabBarIcon: () => <FontAwesome name='music' size={32} color='red' />
+        }}
+        />
         </Tab.Navigator>
     )
 }
