@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import { TextBase, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 import { auth, db } from '../../firebase/config'
+import {storage} from '../../firebase/config'
 
-class RegisterScreen extends Component{
+class Register extends Component{
     constructor(){
         super()
         this.state={
@@ -12,7 +13,7 @@ class RegisterScreen extends Component{
         }
     }
 
-    register(username, email, pass){
+    registroUsuario(username, email, pass){
         auth.createUserWithEmailAndPassword(email, pass)
         .then(()=> {
             return(
@@ -55,7 +56,7 @@ class RegisterScreen extends Component{
                     secureTextEntry={true}
                     />
                     <View>
-                        <TouchableOpacity onPress={()=> this.register(this.state.username, this.state.email, this.state.pass)}>
+                        <TouchableOpacity onPress={()=> this.registroUsuario(this.state.username, this.state.email, this.state.pass)}>
                             <Text>Register</Text>
                         </TouchableOpacity>
                     </View>
@@ -85,4 +86,4 @@ const styles = StyleSheet.create({
     }
   })
 
-export default RegisterScreen
+export default Register

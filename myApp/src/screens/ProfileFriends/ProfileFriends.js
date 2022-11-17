@@ -33,6 +33,13 @@ export default class ProfileFriends extends Component {
     return (
       <View>
         <Text>ProfileFriends</Text>
+
+{/* //Nombre de usuario. 
+// Email del usuario.
+// Mini bio (si la cargó al registrarse).
+// Foto de perfil (si cargó una al registrarse).
+// La cantidad total de posteos publicados por el usuario.
+// Mostrar todos los posteos del usuario.  */}
       </View>
     )
   }

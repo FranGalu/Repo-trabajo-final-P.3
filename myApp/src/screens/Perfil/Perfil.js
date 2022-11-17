@@ -38,8 +38,15 @@ class Perfil extends Component {
                 allComments: comments
             })
         }) 
+    }
 
+    eliminar(){
+        db.collection('users').doc
+        .delete(
 
+        ).then(()=> 
+        this.props.navigation.navigate('Register'))
+        
     }
 
     signOut(){
@@ -49,9 +56,25 @@ class Perfil extends Component {
 return (
     <View>
       <Text>Este es tu perfil!</Text>
-      <TouchableOpacity onPress={()=> this.signOut()}>
+
+            <Text> El nombre del usuario</Text>
+            <Text> La biografia del usuario</Text>
+            <Text> {auth.currentUser.email} </Text> 
+
+            <FlatList
+                data={ this.state.allComments }
+                keyExtractor={ item => item.id.toString() }
+                renderItem={({item}) => <OnePost data={item.data} id={item.id}/>}
+            /> 
+
+    <TouchableOpacity onPress={()=> this.signOut()}>
         <text> Cerrar tu sesión</text>
       </TouchableOpacity>
+
+      <TouchableOpacity onPress={ () => this.eliminar()}>
+                <Text>Eliminar perfil</Text>
+            </TouchableOpacity>
+
     </View>
   )
 }
