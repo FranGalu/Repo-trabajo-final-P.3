@@ -42,7 +42,7 @@ class Login extends Component{
                 />
             <View>
                 <TouchableOpacity onPress = {()=> this.login(this.state.email, this.state.pass)}>
-                    <Text>Login</Text>
+                    <Text>Log In</Text>
                 </TouchableOpacity>
             </View>
             </View>
