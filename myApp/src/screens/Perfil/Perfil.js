@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import  {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native'; 
 import React, {Component} from 'react'
 import { auth, db } from '../../firebase/config'
 
@@ -38,20 +38,46 @@ class Perfil extends Component {
                 allComments: comments
             })
         }) 
+    }
 
+    eliminar(){
+        db.collection('users').doc
+        .delete(
 
+        ).then(()=> 
+        this.props.navigation.navigate('Register'))
+        
     }
 
     signOut(){
         auth.signOut()
+        this.props.navigation.navigate('Login')
     }
     render(){
 return (
     <View>
       <Text>Este es tu perfil!</Text>
-      <TouchableOpacity onPress={()=> this.signOut()}>
+
+            <Text> El nombre del usuario</Text>
+            <Text> La biografia del usuario</Text>
+            <Text> {auth.currentUser.email} </Text> 
+
+
+            {/* //Falta completar flatlist */}
+            <FlatList
+                data={ this.state.allComments }
+                keyExtractor={ item => item.id.toString() }
+                renderItem={({item}) => <NoTengoLaData data={item.data} id={item.id}/>}
+            /> 
+
+    <TouchableOpacity onPress={()=> this.signOut()}>
         <text> Cerrar tu sesión</text>
       </TouchableOpacity>
+
+      <TouchableOpacity onPress={ () => this.eliminar()}>
+                <Text>Eliminar perfil</Text>
+            </TouchableOpacity>
+
     </View>
   )
 }
