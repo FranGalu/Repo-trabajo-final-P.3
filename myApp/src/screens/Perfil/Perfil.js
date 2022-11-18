@@ -24,21 +24,21 @@ class Perfil extends Component {
             allComments: []
         }
     }
-//funciona una vez que enganchemos los comentarios
-    componentDidMount(){
-        db.collections('posts').onSnapshot(docs =>{
-            let comments = []
-            docs.forEach( doc => {
-                comments.push({
-                id: doc.id,
-                data: doc.data()
-                })
-            })
-            this.setState({
-                allComments: comments
-            })
-        }) 
-    }
+// //funciona una vez que enganchemos los comentarios
+//     componentDidMount(){
+//         db.collections('posts').onSnapshot(docs =>{
+//             let comments = []
+//             docs.forEach( doc => {
+//                 comments.push({
+//                 id: doc.id,
+//                 data: doc.data()
+//                 })
+//             })
+//             this.setState({
+//                 allComments: comments
+//             })
+//         }) 
+//     }
 
     eliminar(){
         db.collection('users').doc
@@ -56,12 +56,13 @@ class Perfil extends Component {
     render(){
 return (
     <View>
+        <div>
       <Text>Este es tu perfil!</Text>
-
-            <Text> El nombre del usuario</Text>
-            <Text> La biografia del usuario</Text>
-            <Text> {auth.currentUser.email} </Text> 
-
+            <li>
+           <ul><Text> El nombre del usuario</Text></ul>
+           <ul><Text> La biografia del usuario</Text></ul> 
+           <ul><Text> Tu mail: {auth.currentUser.email} </Text> </ul>
+            </li>
 
             {/* //Falta completar flatlist */}
             <FlatList
@@ -77,6 +78,7 @@ return (
       <TouchableOpacity onPress={ () => this.eliminar()}>
                 <Text>Eliminar perfil</Text>
             </TouchableOpacity>
+            </div>
 
     </View>
   )

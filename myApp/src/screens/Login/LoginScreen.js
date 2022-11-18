@@ -57,6 +57,9 @@ class LoginScreen extends Component{
                     <TouchableOpacity onPress={()=> this.props.navigation.navigate('Register')}>
                         <Text>Register</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('TabNavigation')}>
+                        <Text>Home</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             </View>
