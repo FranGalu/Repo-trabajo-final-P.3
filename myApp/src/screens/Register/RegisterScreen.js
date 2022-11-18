@@ -3,8 +3,8 @@ import { TextBase, View, TextInput, StyleSheet, TouchableOpacity } from 'react-n
 import { auth, db } from '../../firebase/config'
 
 class RegisterScreen extends Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
             username:'',
             email:'',

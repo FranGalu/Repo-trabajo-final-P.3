@@ -3,8 +3,8 @@ import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-nativ
 import {auth} from '../../firebase/config'
 
 class Register extends Component{
-    constructor(props){
-        super(props)
+    constructor(){
+        super()
         this.state={
             input1:'',
             input2:'',
@@ -38,7 +38,7 @@ class Register extends Component{
                 secureTextEntry={true}
             />
             <View>
-                <TouchableOpacity onPress={()=> this.registrarUsuario(this.state.input1, this.state.input2)}>
+                <TouchableOpacity onPress={()=> this.register(this.state.input1, this.state.input2)}>
                     <Text>Registrarme</Text>
                 </TouchableOpacity>
             </View>
