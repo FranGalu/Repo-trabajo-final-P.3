@@ -21,24 +21,25 @@ class Perfil extends Component {
     constructor(props){
         super(props)
         this.state ={
-            allComments: []
+            todosComentarios: []
         }
     }
 // //funciona una vez que enganchemos los comentarios
-//     componentDidMount(){
-//         db.collections('posts').onSnapshot(docs =>{
-//             let comments = []
-//             docs.forEach( doc => {
-//                 comments.push({
-//                 id: doc.id,
-//                 data: doc.data()
-//                 })
-//             })
-//             this.setState({
-//                 allComments: comments
-//             })
-//         }) 
-//     }
+componentDidMount(){
+    db.collection('posts').onSnapshot(docs => {
+        let comentarios = []
+        docs.forEach(doc => {
+            comentarios.push({
+                id: doc.id,
+                data: doc.data()
+            })
+           
+        })
+        this.setState({
+            todosComentarios: comentarios
+        }, () => console.log(this.state.todosComentarios))
+    })
+}
 
     eliminar(){
         db.collection('users').doc
