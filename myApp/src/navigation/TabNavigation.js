@@ -3,7 +3,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import { FontAwesome } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons';
 import HomeNavigation from './HomeNavigation'
-import Perfil from '../screens/Perfil/Perfil'
+import Perfil from '../screens/Perfil/Perfil';
+import Posts from '../screens/Posts/Posts';
 const Tab = createBottomTabNavigator()
 
 export default function TabNavigation(){
@@ -24,6 +25,14 @@ export default function TabNavigation(){
             tabBarIcon: () => <AntDesign name="user" size={24} color="black" />
         }}
         />
+        <Tab.Screen
+            name='Posts'
+            component={Posts}
+            options={{
+            tabBarIcon: () => <AntDesign name="plus" size={24} color="black" />
+        }}
+        />
+        
         </Tab.Navigator>
     )
 }
