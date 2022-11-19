@@ -24,7 +24,7 @@ class Perfil extends Component {
             todosComentarios: []
         }
     }
-// //funciona una vez que enganchemos los comentarios
+
 componentDidMount(){
     db.collection('posts').onSnapshot(docs => {
         let comentarios = []
@@ -67,7 +67,7 @@ return (
 
             {/* //Falta completar flatlist */}
             <FlatList
-                data={ this.state.allComments }
+                data={ this.state.todosComentarios }
                 keyExtractor={ item => item.id.toString() }
                 renderItem={({item}) => <NoTengoLaData data={item.data} id={item.id}/>}
             /> 
