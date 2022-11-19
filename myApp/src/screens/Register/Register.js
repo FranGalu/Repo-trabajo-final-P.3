@@ -15,7 +15,7 @@ export class Register extends Component {
                 }
             }
         
-            registroUsuario(username, email, pass){
+        registroUsuario(username, email, pass){
                 auth.createUserWithEmailAndPassword(email, pass)
                 .then(()=> {
                     return(
