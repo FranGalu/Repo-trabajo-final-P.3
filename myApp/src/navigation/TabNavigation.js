@@ -1,6 +1,7 @@
 import React from 'react'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import { FontAwesome } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
 import HomeNavigation from './HomeNavigation'
 import Perfil from '../screens/Perfil/Perfil'
 const Tab = createBottomTabNavigator()
@@ -20,7 +21,7 @@ export default function TabNavigation(){
             name='Perfil'
             component={Perfil}
             options={{
-            tabBarIcon: () => <FontAwesome name='music' size={32} color='red' />
+            tabBarIcon: () => <AntDesign name="user" size={24} color="black" />
         }}
         />
         </Tab.Navigator>
