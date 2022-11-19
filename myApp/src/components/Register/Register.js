@@ -6,8 +6,8 @@ class Register extends Component{
     constructor(){
         super()
         this.state={
-            input1:'',
-            input2:'',
+            email:'',
+            password:'',
         }
     }
 
@@ -21,24 +21,24 @@ class Register extends Component{
     render() {
         return (
           <View>
-            <Text>Formulario</Text>
+            <Text>Formulario de Registro</Text>
             <TextInput
                 style={styles.input}
-                placeholder='Escribe tu email'
-                keyboardType='email-address'
-                onChangeText={text => this.setState({input1: text})}
-                value={this.state.input1}
+                placeholder='Escribe tu email de usuario'
+                keyboardType='default'
+                onChangeText={text => this.setState({email: text})}
+                value={this.state.email}
             />
             <TextInput
                 style={styles.input}
                 placeholder='Escribe tu password'
                 keyboardType='default'
-                onChangeText={text => this.setState({input2: text})}
-                value={this.state.input2}
+                onChangeText={text => this.setState({password: text})}
+                value={this.state.password}
                 secureTextEntry={true}
             />
             <View>
-                <TouchableOpacity onPress={()=> this.register(this.state.input1, this.state.input2)}>
+                <TouchableOpacity onPress={()=> this.register(this.state.email, this.state.password)}>
                     <Text>Registrarme</Text>
                 </TouchableOpacity>
             </View>
