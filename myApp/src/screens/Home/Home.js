@@ -8,7 +8,7 @@ render(){
     return(
         <View>
         <Buscador/>
-        <Text style={styles.hola}>Hola</Text>
+        <Text style={styles.hola}>Hola </Text>
         </View>
     )
 }
