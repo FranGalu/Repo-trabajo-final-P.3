@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image, FlatList, ActivityIndicator,TouchableOpacity} from 'react-native'
 import React, {Component} from 'react'
 import { db } from '../../firebase/config';
-import Posts from '../Posts/Posts';
+import NewPost from '../Posts/NewPost';
 // import {db} from '../../firebase/config'
 
 class Home extends Component{
@@ -36,7 +36,7 @@ render(){
         <FlatList
         data={this.state.posts}
         keyExtractor={posts => posts.id}
-        renderItem = { ({item})=> <Posts dataPost={item} />}
+        renderItem = { ({item})=> <NewPost dataPost={item} />}
         />
 
         </View>
