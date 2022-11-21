@@ -1,102 +1,109 @@
-import { Text, View, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
-import React, { Component } from 'react';
-import { auth, db } from '../../firebase/config';
+import { Text, View, StyleSheet, FlatList, TextInput } from 'react-native'
+import React, { Component } from 'react'
+import { db } from '../../firebase/config'
 
+class Buscador extends Component {
 
-//base del otro proyecto 
-class Buscador extends Component{ //capturar valores
-    constructor(props){ // Representan información que es enviada al momento en el que un componente es utilizado. 
-        super(props) //componente hijo de Home
-        this.state={
-            valorInput:'',
-            posts:[]
-        }
+  constructor(props) {
+    super(props)
+    console.log(props)
+    this.state = {
+      buscar: '',
+      guardarValor: '',
+      backup: '',
+      mensaje: '',
     }
+  }
+  componentDidMount() {
+    db.collection('users')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot(docs => {
+        let search = []
+        docs.forEach(doc => {
+          search.push({
+            id: doc.id,
+            data: doc.data()
+          })
+        })
 
-    buscar(text){
-    console.log(text)
-    console.log(this.state.valorInput)
-        this.setState({valorInput:text})
-        db.collection('users').where('username', '==', text).onSnapshot(
-            docs => {
-                let posts = [];
-                docs.forEach( doc => {
-                    posts.push({
-                        id: doc.id,
-                        data: doc.data()
-                    })
-                    this.setState({
-                        posts: posts,
-                    })
-                })   
-            }
-        )
+        this.setState({
+          guardarValor: search,
+          backup: search,
+
+        })
+
+      })
+  }
+
+
+  buscarData(valor) {
+
+    let userFiltrado = this.state.backup.filter(elm => {
+      if (elm.data.email.toLowerCase().includes(valor)) {
+        return elm
+      }
+    })
+
+    this.setState({ buscar: valor })
+    if (userFiltrado.length > 0) {
+
+      this.setState({
+        guardarValor: userFiltrado,
+      })
+
+    } else {
+      this.setState({
+        mensaje: 'Email not found!',
+        guardarValor: [],
+      })
     }
+  }
 
 
-    render(){
-        return( <View>
-            <TextInput
-                style={styles.input}
-                placeholder='Search Users by Username'
-                keyboardType="default"
-                onChangeText={text => this.setState({valorInput : text})}
-                value={this.state.valorInput}/>
-                <TouchableOpacity style={styles.touchableL} onPress={()=> this.buscar(this.state.valorInput)} >
-                    <Text>Buscar</Text> 
-                </TouchableOpacity>
-                
-                {/* <FlatList 
-                    data={this.state.posts}
-                    keyExtractor={ onePost => onePost.id.toString()}
-                    renderItem={({item}) => 
-                        <TouchableOpacity onPress={()=>this.props.navigation.navigate('ProfileUser')}>
-                            { this.state.valorInput == item.data.username ?
-                                <Text>{item.data.username}</Text > : 
-                                <Text style={{fontSize:24, fontWeight: 'bold', margin:8}}>No se ha encontrado ningun usuario con ese nombre</Text> 
-                            }
-                        </TouchableOpacity> 
-                    }
-                />  */}
-            </View>
-            )
-    
-    }
+  render() {
+    return (
+      <View>
+        <TextInput
+          style={styles.container}
+          placeholder='Encontra a tus amigos!'
+          keyboardType='default'
+          onChangeText={search => this.buscarData(search)}
+          value={this.state.buscar}
+        />
+        <FlatList
+          style={styles.container2}
+          data={this.state.guardarValor}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({ item }) => <Text>{item.data.email}</Text>}
+        />
+        <Text>{this.state.mensaje}</Text>
+      </View>
+    )
+
+  }
 }
-//el evento onChange: para obtener la info que el usuario ingresa en el campo. el estado del componente se actualizará cada vez que el usuario ingrese un carácter.
-const styles=StyleSheet.create({
-    input:{
-        height: 30,
-        width:300,
-        alignSelf:'center',
-        borderWidth:3,
-        backgroundColor:"white",
-        borderStyle:"solid",
-        borderColor: "rgba(176, 145, 0, 0.9)",
-        borderRadius:6,
-        paddingHorizontal:10,
-        paddingVertical:15,
-        marginVertical:10,
-    }, 
-    image:{
-        height:20,
-        width:20
-      },
-      touchableL:{
-        textAlign:"center",
-        width:150,
-        height:20,
-        alignSelf:'center',
-        marginBottom: 10,
-        borderRadius:4,
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        borderStyle:"solid",
-        borderWidth:1,
-        borderColor:"rgba(35, 78, 73, 0.9)",
-        justifyContent: "center",
-        backgroundColor:"rgba(176, 145, 0, 0.9)"
-    },
+
+const styles = StyleSheet.create({
+  container: {
+    height: 30,
+    width: 300,
+    alignSelf: 'center',
+    borderWidth: 3,
+    backgroundColor: "white",
+    borderStyle: "solid",
+    borderColor: "rgb(106, 90, 205)",
+    borderRadius: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+    marginVertical: 10,
+  },
+  container2: {
+    marginVertical: 5,
+    padding: 15,
+    marginTop: 20,
+    width: '100%',
+    marginHorizontal: 10
+  },
 })
 
 export default Buscador;

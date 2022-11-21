@@ -90,10 +90,10 @@ class Perfil extends Component {
   render() {
     return (
       <View>
-        <div>
+        
           <Text>Este es tu perfil!</Text>
+          
           <li>
-
             <ul><Text > Bienvenido a tu perfil {this.state.infoUser.username}! </Text></ul>
             <ul><Text> La biografia del usuario</Text></ul>
             <ul><Text> Tu mail: {auth.currentUser.email} </Text> </ul>
@@ -117,7 +117,6 @@ class Perfil extends Component {
           {/* <TouchableOpacity onPress={ () => this.eliminar()}>
                 <Text>Eliminar perfil</Text>
             </TouchableOpacity> */}
-        </div>
 
       </View>
     )

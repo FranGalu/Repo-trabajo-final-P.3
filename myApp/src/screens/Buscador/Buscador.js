@@ -18,6 +18,7 @@ render(){
 const styles = StyleSheet.create({
     hola: {
         fontSize: 20,
+        textAlign: 'center'
     }
 })
 
