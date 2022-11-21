@@ -10,50 +10,50 @@ class Posts extends Component {
         description: ''
     }
   }
-//   enviarComentario(comentario){
-//     db.collection('posts').add({
-//         owner: auth.currentUser.email,
-//         date: Date.now(),
-//         comment: comentario 
-//     })
-//     .then(()=>{
-//         this.setState({comentario: ''})
-//     })
-//     .catch(err=> console.log(err))
-// }
+  enviarComentario(comentario){
+    db.collection('posts').add({
+        owner: auth.currentUser.email,
+        date: Date.now(),
+        comment: comentario 
+    })
+    .then(()=>{
+        this.setState({comentario: ''})
+    })
+    .catch(err=> console.log(err))
+}
 
- enviarPost(description){
-        db.collection('posts').add({
-            owner: auth.currentUser.email,
-            date: Date.now(),
-            description: description,
-            likes: [],
-            comments: []
-        })
-        .then(()=>{
-            this.setState({description: ''})
-        })
-        .catch(err=> console.log(err))
-    }
+//  enviarPost(description){
+//         db.collection('posts').add({
+//             owner: auth.currentUser.email,
+//             date: Date.now(),
+//             description: description,
+//             likes: [],
+//             comments: []
+//         })
+//         .then(()=>{
+//             this.setState({description: ''})
+//         })
+//         .catch(err=> console.log(err))
+//     }
 
 
     render() {
     return (
       <View>
-        {/* <Text>Crea tu posteo</Text>
+        <Text>Crea tu posteo</Text>
         <TextInput
         keyboardType='default'
-        placeholder='Escribi tu comentario!'
+        placeholder='Escribi una descripcion!'
         onChangeText={text => this.setState({comentario: text})}
         style= {styles.input}
         value={this.state.comentario}
         />
         <View>
             <TouchableOpacity onPress={()=> this.enviarComentario(this.state.comentario)}>
-            <Text>Enviar comentario</Text>
+            <Text>Subir Post</Text>
             </TouchableOpacity>
-        </View> */}
-        <TextInput
+        </View>
+        {/* <TextInput
         keyboardType='default'
         placeholder='Deja tu descripcion'
         onChangeText={text => this.setState({description: text})}
@@ -63,7 +63,7 @@ class Posts extends Component {
         <TouchableOpacity
         onPress={()=> this.enviarPost()}>
             <Text>Enviar Post</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     )
   }
