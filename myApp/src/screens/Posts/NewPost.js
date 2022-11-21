@@ -10,11 +10,12 @@ class NewPost extends Component {
         description: ''
     }
   }
-  enviarComentario(comentario){
+  enviarPost(comentario){
     db.collection('posts').add({
         owner: auth.currentUser.email,
         date: Date.now(),
-        comment: comentario 
+        description: comentario 
+     
     })
     .then(()=>{
         this.setState({comentario: ''})
@@ -49,7 +50,7 @@ class NewPost extends Component {
         value={this.state.comentario}
         />
         <View>
-            <TouchableOpacity onPress={()=> this.enviarComentario(this.state.comentario)}>
+            <TouchableOpacity onPress={()=> this.enviarPost(this.state.comentario)}>
             <Text>Subir Post</Text>
             </TouchableOpacity>
         </View>
