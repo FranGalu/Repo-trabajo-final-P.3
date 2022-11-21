@@ -8,22 +8,22 @@ class Home extends Component{
     constructor(props){
         super(props);
         this.state={
-            posts:[],
+            allPosts:[],
         }
     }
 
     componentDidMount(){
-        db.collection('posts').orderBy('date', 'desc').onSnapshot(
+        db.collection('posts').orderBy('date', 'desc').onSnapshot( //con snapshot estamos trayendo la data actualizada
             docs => {
                 let posts = [];
-                docs.forEach( oneDoc => {
+                docs.forEach( doc => { //ese forEach es bucle de firebase
                     posts.push({
-                        id: oneDoc.id,
-                        data: oneDoc.data()
+                        id: doc.id,
+                        data: doc.data()
                     })
                 })
                 this.setState({
-                    posts: posts,
+                    allPosts: posts,
                     loading: false
                 })
             }
@@ -34,9 +34,9 @@ render(){
         <View style={styles.hola}>
         <Text style={styles.hola}>Home</Text>
         <FlatList
-        data={this.state.posts}
-        keyExtractor={posts => posts.id}
-        renderItem = { ({item})=> <NewPost dataPost={item} />}
+        data={this.state.allPosts}
+        keyExtractor={posts => posts.id.toString()}
+        renderItem = { ({item})=> <Text>{item.data.description}</Text>} //<Post data = {item.data}/>} no funciona
         />
 
         </View>
