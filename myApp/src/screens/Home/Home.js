@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, FlatList, ActivityIndicator,TouchableOpa
 import React, {Component} from 'react'
 import { db } from '../../firebase/config';
 import NewPost from '../Posts/NewPost';
+import Post from '../../components/Posts/Post';
 // import {db} from '../../firebase/config'
 
 class Home extends Component{
@@ -36,7 +37,7 @@ render(){
         <FlatList
         data={this.state.allPosts}
         keyExtractor={posts => posts.id.toString()}
-        renderItem = { ({item})=> <Text>{item.data.description}</Text>} //<Post data = {item.data}/>} no funciona
+        renderItem = { ({item})=>   <Text>{item.data.description}</Text>} //<Post data = {item.data}/>} no funciona
         />
 
         </View>

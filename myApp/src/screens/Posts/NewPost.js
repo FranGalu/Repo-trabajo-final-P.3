@@ -3,18 +3,21 @@ import React, { Component } from 'react'
 import {db, auth} from '../../firebase/config'
 
 class NewPost extends Component {
-  constructor(){
-      super()
+  constructor(props){
+      super(props)
       this.state = {
         comentario: '',
-        description: ''
+        description: '',
+        likes: []
     }
   }
   enviarPost(comentario){
     db.collection('posts').add({
         owner: auth.currentUser.email,
         date: Date.now(),
-        description: comentario 
+        description: comentario,
+        likes: [],
+        comments: []
      
     })
     .then(()=>{
