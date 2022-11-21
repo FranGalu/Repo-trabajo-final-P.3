@@ -6,6 +6,7 @@ import {FontAwesome} from '@expo/vector-icons'
 
 class Post extends Component {
     constructor(props){
+        super(props)
     this.state = {
         likeCount: props.data.likes.lenght,
         commentCount: props.data.comments.lenght,
@@ -54,6 +55,7 @@ unlike(){
 render(){
     return(
         <View>
+            <Text>{this.props.data.description}</Text>
             <TouchableOpacity 
             onPress={()=> this.props.navigation.navigate(
 
