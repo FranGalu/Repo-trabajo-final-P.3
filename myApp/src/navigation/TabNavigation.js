@@ -5,6 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 import HomeNavigation from './HomeNavigation'
 import Perfil from '../screens/Perfil/Perfil';
 import Posts from '../screens/Posts/Posts';
+import BuscadorScreen from '../screens/BuscadorScreen/BuscadorScreen'
 const Tab = createBottomTabNavigator()
 
 export default function TabNavigation(){
@@ -32,6 +33,14 @@ export default function TabNavigation(){
             tabBarIcon: () => <AntDesign name="plus" size={24} color="black" />
         }}
         />
+         <Tab.Screen 
+            name='Buscador' 
+            component={BuscadorScreen}
+            options={{
+                tabBarIcon: () => <FontAwesome name="search" size={24} color="black" />,
+                headerShown:false
+            }}
+            />
         
         </Tab.Navigator>
     )

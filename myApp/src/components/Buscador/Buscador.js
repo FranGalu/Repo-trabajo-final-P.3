@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native' //lo voy a usar mas adelante
+import { auth } from '../../firebase/config'
 
 
 // El proyecto debe contar con una pantalla que permita filtrar usuarios por email ó por user name. Los resultados que coincidan con la búsqueda deben aparecer de forma automática. 

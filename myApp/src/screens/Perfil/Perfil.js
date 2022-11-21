@@ -2,16 +2,17 @@ import  {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native'
 import React, {Component} from 'react'
 import { auth, db } from '../../firebase/config'
 
-//Nombre de usuario. 
-// Email del usuario.
-// Mini bio (si la cargó al registrarse).
-// Foto de perfil (si cargó una al registrarse).
-// La cantidad total de posteos publicados por el usuario.
-// Mostrar todos los posteos del usuario. 
 
-// Permitir borrar posteos.
-// Botón para el logout completo del usuario. Si el logout se realiza correctamente la aplicación debe redirigir al usuario a la pantalla de login.
-// Las pantallas serán accesibles únicamente para los usuarios logueados.
+//Nombre de usuario.  !
+// Email del usuario. !
+// Mini bio (si la cargó al registrarse). !
+// Foto de perfil (si cargó una al registrarse). X
+// La cantidad total de posteos publicados por el usuario. X
+// Mostrar todos los posteos del usuario.  X
+
+// Permitir borrar posteos. X
+// Botón para el logout completo del usuario. Si el logout se realiza correctamente la aplicación debe redirigir al usuario a la pantalla de login. !
+// Las pantallas serán accesibles únicamente para los usuarios logueados. !
 
 
 class Perfil extends Component {
@@ -21,34 +22,67 @@ class Perfil extends Component {
     constructor(props){
         super(props)
         this.state ={
-            todosComentarios: []
+            allComments: [],
+            infoUser: {},
+            id: ''
         }
     }
+    componentDidMount(){
 
-componentDidMount(){
-    db.collection('posts').onSnapshot(docs => {
-        let comentarios = []
-        docs.forEach(doc => {
-            comentarios.push({
+        db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(docs => {
+            let posts = []
+            docs.forEach(doc => {
+              posts.push({
                 id: doc.id,
                 data: doc.data()
+              })
             })
-           
-        })
-        this.setState({
-            todosComentarios: comentarios
-        }, () => console.log(this.state.todosComentarios))
-    })
-}
-
-    eliminar(){
-        db.collection('users').doc
-        .delete(
-
-        ).then(()=> 
-        this.props.navigation.navigate('Register'))
+            this.setState({
+              allComments: posts
+            },
+            () => console.log(this.state.allComments)
+            )
+            
+          })
+    
+          db.collection('users')
+          .where('email', '==', auth.currentUser.email)
+          .onSnapshot(doc => {
+            doc.forEach(doc => 
+            this.setState({
+              id: doc.id,
+              infoUser: doc.data()
+            })) 
+          })
+     
         
-    }
+      }
+
+    //   componentWillUnmount(){
+    //     db.collection('users').onSnapshot(
+    //         docs=>{
+    //             let usuario = [];
+    //             docs.forEach( doc =>{
+    //                 usuario.push({
+    //                     id: doc.id,
+    //                     data: doc.data()
+    //                 })
+    //                 this.setState({
+                        
+    //                 })
+    //             })
+    //         }
+    //     )
+    //     }
+
+    // eliminar(){
+    //     db.collection('users').doc
+    //     .delete(
+
+    //     ).then(()=> 
+    //     this.props.navigation.navigate('Register'))
+        
+    // }
 
     signOut(){
         auth.signOut()
@@ -60,31 +94,23 @@ return (
         <div>
       <Text>Este es tu perfil!</Text>
             <li>
-           <ul><Text> El nombre del usuario</Text></ul>
+          
+           <ul><Text > Bienvenido a tu perfil {this.state.infoUser.username}! </Text></ul>
            <ul><Text> La biografia del usuario</Text></ul> 
            <ul><Text> Tu mail: {auth.currentUser.email} </Text> </ul>
-            </li>
-
-            {/* //Falta completar flatlist */}
-            <FlatList
-                data={ this.state.todosComentarios }
-                keyExtractor={ item => item.id.toString() }
-                renderItem={({item}) => <NoTengoLaData data={item.data} id={item.id}/>}
-            /> 
-
+            <ul><Text> Tu perfil se creo: {auth.currentUser.metadata.creationTime} </Text> </ul>
+           </li>
     <TouchableOpacity onPress={()=> this.signOut()}>
         <text> Cerrar tu sesión</text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={ () => this.eliminar()}>
+      {/* <TouchableOpacity onPress={ () => this.eliminar()}>
                 <Text>Eliminar perfil</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             </div>
 
     </View>
   )
 }
 }
- 
-
 export default Perfil
