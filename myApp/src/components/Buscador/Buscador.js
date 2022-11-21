@@ -1,54 +1,102 @@
-import React, { Component } from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native' //lo voy a usar mas adelante
-import { auth } from '../../firebase/config'
+import { Text, View, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import React, { Component } from 'react';
+import { auth, db } from '../../firebase/config';
 
 
-// El proyecto debe contar con una pantalla que permita filtrar usuarios por email ó por user name. Los resultados que coincidan con la búsqueda deben aparecer de forma automática. 
-// Cada equipo decidirá si usa email o user name. Los resultados deben permitir navegar hasta el perfil del usuario.
-// En caso de que el filtrado no obtenga resultados la pantalla mostrará el mensaje: “El email/ user name no existe”. 
-
-
-
-
-//uso el modelo del proyecto anterior, me falta cambiar y adaptar "usuario"
-
-class Buscador extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
+//base del otro proyecto 
+class Buscador extends Component{ //capturar valores
+    constructor(props){ // Representan información que es enviada al momento en el que un componente es utilizado. 
+        super(props) //componente hijo de Home
+        this.state={
             valorInput:'',
-            tipoDeBusqueda:'album',
+            posts:[]
         }
     }
 
-    preventSubmit(event){
-        event.preventDefault()
+    buscar(text){
+    console.log(text)
+    console.log(this.state.valorInput)
+        this.setState({valorInput:text})
+        db.collection('users').where('username', '==', text).onSnapshot(
+            docs => {
+                let posts = [];
+                docs.forEach( doc => {
+                    posts.push({
+                        id: doc.id,
+                        data: doc.data()
+                    })
+                    this.setState({
+                        posts: posts,
+                    })
+                })   
+            }
+        )
     }
 
-    controlarInput(event){
-      if(event.target.id === 'inputSearch'){
-          this.setState({
-              valorInput: event.target.value
-            }, 
-            ()=> this.props.funcionQueBusca(this.state.valorInput, this.state.tipoDeBusqueda))
-      } else {
-        this.setState({
-          tipoDeBusqueda: event.target.value
-          }, 
-          ()=> this.props.funcionQueBusca(this.state.valorInput, this.state.tipoDeBusqueda))
-      }
-    }
 
-  render() {
-    return (
-      <form onSubmit={(event)=> this.prevenirSubmit(event)}>
-        <input type='text' id='inputSearch' onChange={(event)=> this.controlarInput(event)} value={this.state.valorInput}/>
-        <label htmlFor='usuario'>
-          <input checked={this.state.tipoDeBusqueda === 'usuario'} id='usuario' type='radio' name='tipoDeBusqueda' onChange={(event) => this.controlarInput(event)} value='usuario' />
-        </label>
-      </form>
-    )
-  }
+    render(){
+        return( <View>
+            <TextInput
+                style={styles.input}
+                placeholder='Search Users by Username'
+                keyboardType="default"
+                onChangeText={text => this.setState({valorInput : text})}
+                value={this.state.valorInput}/>
+                <TouchableOpacity style={styles.touchableL} onPress={()=> this.buscar(this.state.valorInput)} >
+                    <Text>Buscar</Text> 
+                </TouchableOpacity>
+                
+                {/* <FlatList 
+                    data={this.state.posts}
+                    keyExtractor={ onePost => onePost.id.toString()}
+                    renderItem={({item}) => 
+                        <TouchableOpacity onPress={()=>this.props.navigation.navigate('ProfileUser')}>
+                            { this.state.valorInput == item.data.username ?
+                                <Text>{item.data.username}</Text > : 
+                                <Text style={{fontSize:24, fontWeight: 'bold', margin:8}}>No se ha encontrado ningun usuario con ese nombre</Text> 
+                            }
+                        </TouchableOpacity> 
+                    }
+                />  */}
+            </View>
+            )
+    
+    }
 }
+//el evento onChange: para obtener la info que el usuario ingresa en el campo. el estado del componente se actualizará cada vez que el usuario ingrese un carácter.
+const styles=StyleSheet.create({
+    input:{
+        height: 30,
+        width:300,
+        alignSelf:'center',
+        borderWidth:3,
+        backgroundColor:"white",
+        borderStyle:"solid",
+        borderColor: "rgba(176, 145, 0, 0.9)",
+        borderRadius:6,
+        paddingHorizontal:10,
+        paddingVertical:15,
+        marginVertical:10,
+    }, 
+    image:{
+        height:20,
+        width:20
+      },
+      touchableL:{
+        textAlign:"center",
+        width:150,
+        height:20,
+        alignSelf:'center',
+        marginBottom: 10,
+        borderRadius:4,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderStyle:"solid",
+        borderWidth:1,
+        borderColor:"rgba(35, 78, 73, 0.9)",
+        justifyContent: "center",
+        backgroundColor:"rgba(176, 145, 0, 0.9)"
+    },
+})
 
-export default Buscador
+export default Buscador;
