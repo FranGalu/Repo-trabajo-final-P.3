@@ -74,7 +74,7 @@ class Buscador extends Component {
           style={styles.container2}
           data={this.state.guardarValor}
           keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => <Text>{item.data.email}</Text>}
+          renderItem={({ item }) => <Text style={styles.container3}>{item.data.email}</Text>}
         />
         <Text>{this.state.mensaje}</Text>
       </View>
@@ -98,11 +98,20 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   container2: {
+    textAlign: 'center',
     marginVertical: 5,
     padding: 15,
     marginTop: 20,
     width: '100%',
     marginHorizontal: 10
+  },
+  container3: {
+    textAlign: 'center',
+    padding: 15,
+    fontSize: "1.5rem",
+    fontFamily: '-apple-system',
+    fontWeight: 300,
+
   },
 })
 

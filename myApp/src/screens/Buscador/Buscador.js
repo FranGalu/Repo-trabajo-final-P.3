@@ -2,8 +2,6 @@ import { View, Text, StyleSheet, Image, FlatList, ActivityIndicator,TouchableOpa
 import React, {Component} from 'react'
 import Buscador from '../../components/Buscador/Buscador'
 
-// import {db} from '../../firebase/config'
-
 class BuscadorScreen extends Component{
 render(){
     return(
@@ -14,11 +12,14 @@ render(){
     )
 }
 }
-
+//porque no se le aplica?
 const styles = StyleSheet.create({
     hola: {
-        fontSize: 20,
-        textAlign: 'center'
+    textAlign: 'center',
+    padding: 15,
+    fontSize: "1.5rem",
+    fontFamily: '-apple-system',
+    fontWeight: 300,
     }
 })
 
