@@ -22,7 +22,7 @@ class Perfil extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      allComments: [],
+      allPosts: [],
       infoUser: {},
       id: ''
     }
@@ -38,9 +38,9 @@ class Perfil extends Component {
         })
       })
       this.setState({
-        allComments: posts
+        allPosts: posts
       },
-        () => console.log(this.state.allComments)
+        () => console.log(this.state.allPosts)
       )
 
     })
@@ -99,15 +99,26 @@ class Perfil extends Component {
           <ul><Text> La biografia del usuario</Text></ul>
           <ul><Text> Tu mail: {auth.currentUser.email} </Text> </ul>
           <ul><Text> Fecha de creación de tu perfil: {auth.currentUser.metadata.creationTime} </Text> </ul>
-          <ul><Text> Ya subiste {this.state.allComments.length} posteos! Segui asi! </Text></ul>
+          <ul><Text> Ya subiste {this.state.allPosts.length} posteos! Segui asi! </Text></ul>
         </li>
 
-        <View>
-          <FlatList
+        <View style={styles.container}>
+
+        <FlatList
+        data={this.state.allPosts}
+        keyExtractor={posts => posts.id.toString()}
+        renderItem = { ({item})=> 
+        <Text>"{item.data.description}" de: 
+        <TouchableOpacity style={styles.content}>{item.data.owner}</TouchableOpacity> </Text>} //<Post data = {item.data}/>} no funciona
+        />
+
+
+
+          {/* <FlatList
             data={this.state.allComments}
             keyExtractor={(data) => data.id.toString()}
             renderItem={(item) => <allComments data={item} id={item.id} />}
-          />
+          /> */}
         </View>
 
 
@@ -123,4 +134,19 @@ class Perfil extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  content: {
+      
+      alignItems: 'center',
+      marginTop: 80, 
+      marginBottom: 60
+  },
+  container:{
+    flex:1,
+    padding: '4%',
+    backgroundColor: 'white'
+}
+
+})
 export default Perfil

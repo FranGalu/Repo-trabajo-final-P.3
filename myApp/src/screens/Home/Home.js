@@ -38,7 +38,7 @@ render(){
         data={this.state.allPosts}
         keyExtractor={posts => posts.id.toString()}
         renderItem = { ({item})=> 
-        <Text style={styles.content} style={styles.box}>"{item.data.description}"  de: 
+        <Text style={styles.content}>"{item.data.description}"  de: 
         <TouchableOpacity>{item.data.owner}</TouchableOpacity> </Text>} //<Post data = {item.data}/>} no funciona
         />
 
