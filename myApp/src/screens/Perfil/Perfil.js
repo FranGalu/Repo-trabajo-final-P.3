@@ -8,7 +8,7 @@ import Post from '../../components/Posts/Post'
 // Mini bio (si la cargó al registrarse). !
 // Foto de perfil (si cargó una al registrarse). X
 // La cantidad total de posteos publicados por el usuario. !
-// Mostrar todos los posteos del usuario.  X
+// Mostrar todos los posteos del usuario.  !
 
 // Permitir borrar posteos. X
 // Botón para el logout completo del usuario. Si el logout se realiza correctamente la aplicación debe redirigir al usuario a la pantalla de login. !
@@ -57,24 +57,6 @@ class Perfil extends Component {
 
 
   }
-
-  //   componentWillUnmount(){
-  //     db.collection('users').onSnapshot(
-  //         docs=>{
-  //             let usuario = [];
-  //             docs.forEach( doc =>{
-  //                 usuario.push({
-  //                     id: doc.id,
-  //                     data: doc.data()
-  //                 })
-  //                 this.setState({
-
-  //                 })
-  //             })
-  //         }
-  //     )
-  //     }
-
   // eliminar(){
   //     db.collection('users').doc
   //     .delete(
@@ -90,7 +72,7 @@ class Perfil extends Component {
   }
   render() {
     return (
-      <View>
+      <View style={styles.container}>
 
         <Text>Este es tu perfil!</Text>
 
@@ -102,24 +84,15 @@ class Perfil extends Component {
           <ul><Text> Ya subiste {this.state.allPosts.length} posteos! Segui asi! </Text></ul>
         </li>
 
-        <View style={styles.container}>
+        
 
         <FlatList
         data={this.state.allPosts}
         keyExtractor={posts => posts.id.toString()}
         renderItem = { ({item})=> 
         <Text>"{item.data.description}" de: 
-        <TouchableOpacity style={styles.content}>{item.data.owner}</TouchableOpacity> </Text>} //<Post data = {item.data}/>} no funciona
+        <TouchableOpacity style={styles.content}>{item.data.owner}</TouchableOpacity> </Text>} 
         />
-
-
-
-          {/* <FlatList
-            data={this.state.allComments}
-            keyExtractor={(data) => data.id.toString()}
-            renderItem={(item) => <allComments data={item} id={item.id} />}
-          /> */}
-        </View>
 
 
         <TouchableOpacity onPress={() => this.signOut()}>
@@ -134,7 +107,6 @@ class Perfil extends Component {
     )
   }
 }
-
 const styles = StyleSheet.create({
   content: {
       
@@ -149,4 +121,6 @@ const styles = StyleSheet.create({
 }
 
 })
+
+
 export default Perfil

@@ -41,7 +41,6 @@ render(){
         <Text style={styles.content}>"{item.data.description}"  de: 
         <TouchableOpacity>{item.data.owner}</TouchableOpacity> </Text>} //<Post data = {item.data}/>} no funciona
         />
-
         </View>
     )
 }
