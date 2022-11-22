@@ -15,10 +15,10 @@ export default class HomeNavigation extends Component {
                 headerShown:false
             }}
         />
-        <Stack.Screen>
+        {/* <Stack.Screen>
           name='ProfileFriends'
           component={ProfileFriends}
-        </Stack.Screen>
+        </Stack.Screen> */}
       </Stack.Navigator>
     )
   }
