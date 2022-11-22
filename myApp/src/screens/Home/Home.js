@@ -36,7 +36,9 @@ render(){
         <FlatList
         data={this.state.allPosts}
         keyExtractor={posts => posts.id.toString()}
-        renderItem = { ({item})=> <Text>{item.data.description}</Text>} //<Post data = {item.data}/>} no funciona
+        renderItem = { ({item})=> 
+        <Text>"{item.data.description}"  de: 
+        <TouchableOpacity>{item.data.owner}</TouchableOpacity> </Text>} //<Post data = {item.data}/>} no funciona
         />
 
         </View>

@@ -50,10 +50,10 @@ class Buscador extends Component {
       this.setState({
         guardarValor: userFiltrado,
       })
-
-    } else {
+    }
+     else {
       this.setState({
-        mensaje: 'Email not found!',
+        mensaje: 'No encontramos a tu amigo :(',
         guardarValor: [],
       })
     }

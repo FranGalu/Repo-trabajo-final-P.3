@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import React, { Component } from 'react'
 import { db, auth } from '../../firebase/config'
+import firebase from 'firebase'
 import {FontAwesome} from '@expo/vector-icons'
 
 
@@ -58,7 +59,6 @@ render(){
             <Text>{this.props.data.description}</Text>
             <TouchableOpacity 
             onPress={()=> this.props.navigation.navigate(
-
             )}>
 
             </TouchableOpacity>
