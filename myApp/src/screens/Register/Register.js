@@ -1,8 +1,8 @@
 
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, RecyclerViewBackedScrollView, RefreshControlComponent, requireNativeComponent } from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, RecyclerViewBackedScrollView, RefreshControlComponent, requireNativeComponent } from 'react-native'
 import { auth, db } from '../../firebase/config'
 import {storage} from '../../firebase/config'
-
+import * as ImagePicker from 'expo-image-picker'
 import React, { Component } from 'react'
 
 export class Register extends Component {
@@ -12,17 +12,20 @@ export class Register extends Component {
                     username:'',
                     email:'',
                     pass:'',
-                    bio: ''
+                    bio: '',
+                    imgPerfil:''
                 }
             }
         
-        registroUsuario(username, email, pass){
+        registroUsuario(username, email, pass, bio, imgPerfil){
                 auth.createUserWithEmailAndPassword(email, pass)
                 .then(()=> {
                     return(
                         db.collection('users').add({
                             email: email,
                             username: username,
+                            bio: bio,
+                            imgPerfil: imgPerfil,
                             createdAt: Date.now()
                         })
                     )
@@ -30,9 +33,36 @@ export class Register extends Component {
                 .then(resp => this.props.navigation.navigate('Home'))
                 .catch(err => console.log(err)) 
             }
+
+            buscarImagen(){
+                ImagePicker.launchImageLibraryAsync()
+                .then(resp => {
+                    fetch(resp.uri)
+                    .then(data => data.blob())
+                    .then(img => {
+                        console.log(storage)
+                        const ref = storage.ref(`profilePics/${Date.now()}.jpg`)
+                        ref.put(img)
+                        .then(()=> {
+                            ref.getDownloadURL()
+                            .then(url => {
+                                    this.setState({profileImage:url})
+                                }
+                            )
+                        })
+                    })
+                    .catch(err => console.log(err))
+                })
+                .catch(err => console.log(err))
+            }
+
     render() {
         return (
             <View style={styles.container}>
+                {/* <Image style={styles.image}
+                source={{uri: 'https://images.pexels.com/photos/235994/pexels-photo-235994.jpeg?cs=srgb&dl=pexels-pixabay-235994.jpg&fm=jpg'}}
+                resizeMode='contain'
+                /> */}
              <View>
                 <Text>Register</Text>
                 <TextInput
@@ -64,6 +94,11 @@ export class Register extends Component {
                 onChangeText={text => this.setState({bio: text})}
                 value={this.state.bio}
                 />
+                 <View>
+                    <TouchableOpacity onPress={()=> this.buscarImagen()}>
+                         <Text>Buscar imagen de perfil</Text>
+                    </TouchableOpacity>
+                    </View>
                 <View>
                      <TouchableOpacity onPress={()=> this.registroUsuario(this.state.username, this.state.email, this.state.pass)}>
                          <Text>Register</Text>
@@ -86,13 +121,16 @@ const styles = StyleSheet.create({
     container:{
       flex:1,
       justifyContent:'center',
-      paddingHorizontal:24
+      paddingHorizontal:24,
     },
     input:{
         borderWidth:1
     },
     containerRedirect:{
         marginTop: 32
+    },
+    image:{
+        height: '100%'
     }
   })
 

@@ -53,12 +53,9 @@ class LoginScreen extends Component{
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <Text>Aun no tienes cuenta</Text>
+                    <Text>Aun no tienes cuenta?</Text>
                     <TouchableOpacity onPress={()=> this.props.navigation.navigate('Register')}>
                         <Text>Register</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('TabNavigation')}>
-                        <Text>Home</Text>
                     </TouchableOpacity>
                 </View>
             </View>
