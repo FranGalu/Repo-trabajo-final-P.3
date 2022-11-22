@@ -3,16 +3,11 @@ import React, { Component } from 'react'
 import { auth, db } from '../../firebase/config'
 import Post from '../../components/Posts/Post'
 
-//Nombre de usuario.  !
-// Email del usuario. !
-// Mini bio (si la cargó al registrarse). !
-// Foto de perfil (si cargó una al registrarse). X
-// La cantidad total de posteos publicados por el usuario. !
-// Mostrar todos los posteos del usuario.  !
 
+// Mini bio (si la cargó al registrarse). X
+// Foto de perfil (si cargó una al registrarse). X
 // Permitir borrar posteos. X
-// Botón para el logout completo del usuario. Si el logout se realiza correctamente la aplicación debe redirigir al usuario a la pantalla de login. !
-// Las pantallas serán accesibles únicamente para los usuarios logueados. !
+
 
 
 class Perfil extends Component {
