@@ -1,7 +1,6 @@
 import { Text, View, StyleSheet, TouchableOpacity} from 'react-native'
 import React, { Component } from 'react'
 import { db, auth } from '../../firebase/config'
-import firebase from 'firebase'
 import {FontAwesome} from '@expo/vector-icons'
 import NewPost from '../../screens/Posts/NewPost'
 
@@ -10,14 +9,14 @@ class Post extends Component {
     constructor(props){
         super(props)
     this.state = {
-        likeCount: props.data.likes.length,
-        commentCount: props.data.comments.length,
+        //likeCount: this.props.data.likes.length,
+        //commentCount: this.props.data.comments.length,
         myLike: false //arranca en false para tener el boton Like presente
     }
 }
 
 componentDidMount(){
-    let like = this.props.data.likes.includes(auth.currentUser.email)
+    let like = this.props.data.likes.includes(auth.currentUser.email) //con este includes valido el usuario
     if(like){
         this.setState({
             myLike: true
@@ -42,7 +41,7 @@ unlike(){
     db.collection('posts')
     .doc(this.props.id)
     .update({
-        likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
+        likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email) 
 
     })
     .then(()=> {
@@ -57,19 +56,26 @@ unlike(){
 render(){
     return(
         <View>
+            <View>
+                <Text>{this.props.data.owner}</Text>
+            </View>
             <Text>{this.props.data.description}</Text>
-            {
-                this.state.myLike ?
-                <TouchableOpacity onPress={()=> this.unlike()}>
-                <FontAwesome name='heart' color='pink' size={15} />
-            </TouchableOpacity>
-            : //si es false, que aparezca like
-            <TouchableOpacity onPress={()=> this.like()}>
-                <FontAwesome name='heart-o' color='black' size={15} />
-            </TouchableOpacity>
-            }
-            
-            
+            <View>
+            <Text>{this.state.likeCount}</Text> 
+                <Text>{this.props.data.description}</Text>
+                {/* {
+                    this.state.myLike ?
+                    <TouchableOpacity onPress={()=> this.unlike()}>
+                    <FontAwesome name='heart' color='pink' size={15} />
+                </TouchableOpacity>
+                : //si es false, que aparezca like
+                <TouchableOpacity onPress={()=> this.like()}>
+                    <FontAwesome name='heart-o' color='black' size={15} />
+                </TouchableOpacity>
+                } */}
+                
+                
+            </View>
         </View>
     )
 }
