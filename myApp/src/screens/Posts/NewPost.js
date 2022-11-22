@@ -1,7 +1,7 @@
 import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import {db, auth} from '../../firebase/config'
-import Camara from '../../components/Camara/Camara'
+import MyCamara from '../../components/Camara/Camara'
 
 class NewPost extends Component {
   constructor(props){
@@ -19,6 +19,7 @@ class NewPost extends Component {
         owner: auth.currentUser.email,
         date: Date.now(),
         description: comentario,
+        photo: this.state.url,
         likes: [],
         comments: []
      
@@ -27,6 +28,12 @@ class NewPost extends Component {
         this.setState({comentario: ''})
     })
     .catch(err=> console.log(err))
+}
+onImageUpload(url){
+  this.setState({
+      url: url,
+      showCamera: false,
+  })
 }
 
 //  enviarPost(description){
@@ -47,6 +54,7 @@ class NewPost extends Component {
     render() {
     return (
       <View>
+        {}
         <Text>Crea tu posteo</Text>
         <TextInput
         keyboardType='default'

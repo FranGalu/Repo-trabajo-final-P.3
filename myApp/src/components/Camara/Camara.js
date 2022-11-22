@@ -5,7 +5,7 @@ import {db, storage} from '../../firebase/config'
 
 
 
- class Camara extends Component {
+ class MyCamara extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -71,4 +71,4 @@ import {db, storage} from '../../firebase/config'
   }
 }
 
-export default Camara;
+export default MyCamara;
