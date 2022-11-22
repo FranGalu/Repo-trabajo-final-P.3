@@ -39,7 +39,17 @@ render(){
         keyExtractor={posts => posts.id.toString()}
         renderItem = { ({item})=> 
         <Text style={styles.content}>"{item.data.description}"  de: 
-        <TouchableOpacity>{item.data.owner}</TouchableOpacity> </Text>} //<Post data = {item.data}/>} no funciona
+        <TouchableOpacity  onPress={() => this.props.navigation.navigate(
+            'HomeNavigation',
+            {
+              screen: 'ProfileFriends',
+              params: {
+                email: this.props.data.owner
+              }
+            }
+          )}
+        
+        >{item.data.owner}</TouchableOpacity> </Text>} //<Post data = {item.data}/>} no funciona
         />
         </View>
     )

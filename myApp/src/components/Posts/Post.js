@@ -56,8 +56,17 @@ unlike(){
 render(){
     return(
         <View>
-            <View>
-                <Text>{this.props.data.owner}</Text>
+            <View> <TouchableOpacity onPress={() => this.props.navigation.navigate(
+            'HomeNavigation',
+            {
+              screen: 'ProfileFriends',
+              params: {
+                email: this.props.data.owner
+              }
+            }
+          )}> 
+        <Text>{this.props.data.owner}</Text>
+        </TouchableOpacity>
             </View>
             <Text>{this.props.data.description}</Text>
             <View>
