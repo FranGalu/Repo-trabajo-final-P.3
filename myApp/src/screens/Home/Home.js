@@ -37,20 +37,8 @@ render(){
         <FlatList
         data={this.state.allPosts}
         keyExtractor={posts => posts.id.toString()}
-        renderItem = { ({item})=> 
-        <Text style={styles.content}>"{item.data.description}"  de: 
-        <TouchableOpacity  onPress={() => this.props.navigation.navigate(
-            'HomeNavigation',
-            {
-              screen: 'ProfileFriends',
-              params: {
-                email: this.props.data.owner
-              }
-            }
-          )}
-        
-        >{item.data.owner}</TouchableOpacity> </Text>} //<Post data = {item.data}/>} no funciona
-        />
+        renderItem = { ({item}) => <Post navigation={this.props.navigation} data={item.data} id={item.id}/>}
+       />
         </View>
     )
 }
