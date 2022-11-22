@@ -53,8 +53,11 @@ onImageUpload(url){
 
     render() {
     return (
+      this.state.showCamera ?
+          <MyCamara onImageUpload={url => this.onImageUpload(url)}/> 
+                :
       <View>
-        {}
+        
         <Text>Crea tu posteo</Text>
         <TextInput
         keyboardType='default'
@@ -64,22 +67,13 @@ onImageUpload(url){
         value={this.state.comentario}
         />
         <View>
-            <TouchableOpacity onPress={()=> this.enviarPost(this.state.comentario)}>
+            <TouchableOpacity onPress={()=> this.enviarPost(this.state.comentario) }>
             <Text>Subir Post</Text>
             </TouchableOpacity>
         </View>
-        {/* <TextInput
-        keyboardType='default'
-        placeholder='Deja tu descripcion'
-        onChangeText={text => this.setState({description: text})}
-        style= {styles.input}
-        value={this.state.description}
-        />
-        <TouchableOpacity
-        onPress={()=> this.enviarPost()}>
-            <Text>Enviar Post</Text>
-        </TouchableOpacity> */}
+      
       </View>
+      
     )
   }
 }
