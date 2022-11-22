@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, FlatList, TextInput } from 'react-native'
+import { Text, View, StyleSheet, FlatList, TextInput, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
 import { db } from '../../firebase/config'
 
@@ -74,7 +74,19 @@ class Buscador extends Component {
           style={styles.container2}
           data={this.state.guardarValor}
           keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => <Text style={styles.container3}>{item.data.email}</Text>}
+          renderItem={({ item }) => 
+          <TouchableOpacity onPress={() => this.props.navigation.navigate(
+            'HomeNavigation',
+            {
+              screen: 'ProfileFriends',
+              params: {
+                email: this.props.data.owner
+              }
+            }
+          )}>
+            <Text style={styles.container3}>{item.data.email}</Text>
+            </TouchableOpacity>
+            }
         />
         <Text>{this.state.mensaje}</Text>
       </View>

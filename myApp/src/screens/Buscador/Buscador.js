@@ -6,7 +6,7 @@ class BuscadorScreen extends Component{
 render(){
     return(
         <View>
-        <Text style={styles.hola}>A quien deseas buscar?</Text>
+        <Text style={styles.messi}>A quien deseas buscar?</Text>
         <Buscador/>
         </View>
     )
@@ -14,7 +14,7 @@ render(){
 }
 //porque no se le aplica?
 const styles = StyleSheet.create({
-    hola: {
+    messi: {
     textAlign: 'center',
     padding: 15,
     fontSize: "1.5rem",

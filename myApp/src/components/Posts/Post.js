@@ -10,8 +10,8 @@ class Post extends Component {
     constructor(props){
         super(props)
     this.state = {
-        likeCount: props.data.likes.lenght,
-        commentCount: props.data.comments.lenght,
+        likeCount: props.data.likes.length,
+        commentCount: props.data.comments.length,
         myLike: false //arranca en false para tener el boton Like presente
     }
 }
