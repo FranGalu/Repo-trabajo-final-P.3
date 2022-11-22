@@ -1,6 +1,7 @@
 import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import {db, auth} from '../../firebase/config'
+import Camara from '../../components/Camara/Camara'
 
 class NewPost extends Component {
   constructor(props){
@@ -8,6 +9,8 @@ class NewPost extends Component {
       this.state = {
         comentario: '',
         description: '',
+        showCamara: true,
+        url: '',
         likes: []
     }
   }
