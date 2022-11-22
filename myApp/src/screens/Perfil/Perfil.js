@@ -8,7 +8,7 @@ import Post from '../../components/Posts/Post'
 // Mini bio (si la cargó al registrarse). !
 // Foto de perfil (si cargó una al registrarse). X
 // La cantidad total de posteos publicados por el usuario. !
-// Mostrar todos los posteos del usuario.  X
+// Mostrar todos los posteos del usuario.  !
 
 // Permitir borrar posteos. X
 // Botón para el logout completo del usuario. Si el logout se realiza correctamente la aplicación debe redirigir al usuario a la pantalla de login. !
@@ -22,7 +22,7 @@ class Perfil extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      allComments: [],
+      allPosts: [],
       infoUser: {},
       id: ''
     }
@@ -38,9 +38,9 @@ class Perfil extends Component {
         })
       })
       this.setState({
-        allComments: posts
+        allPosts: posts
       },
-        () => console.log(this.state.allComments)
+        () => console.log(this.state.allPosts)
       )
 
     })
@@ -57,24 +57,6 @@ class Perfil extends Component {
 
 
   }
-
-  //   componentWillUnmount(){
-  //     db.collection('users').onSnapshot(
-  //         docs=>{
-  //             let usuario = [];
-  //             docs.forEach( doc =>{
-  //                 usuario.push({
-  //                     id: doc.id,
-  //                     data: doc.data()
-  //                 })
-  //                 this.setState({
-
-  //                 })
-  //             })
-  //         }
-  //     )
-  //     }
-
   // eliminar(){
   //     db.collection('users').doc
   //     .delete(
@@ -90,7 +72,7 @@ class Perfil extends Component {
   }
   render() {
     return (
-      <View>
+      <View style={styles.container}>
 
         <Text>Este es tu perfil!</Text>
 
@@ -99,16 +81,18 @@ class Perfil extends Component {
           <ul><Text> La biografia del usuario</Text></ul>
           <ul><Text> Tu mail: {auth.currentUser.email} </Text> </ul>
           <ul><Text> Fecha de creación de tu perfil: {auth.currentUser.metadata.creationTime} </Text> </ul>
-          <ul><Text> Ya subiste {this.state.allComments.length} posteos! Segui asi! </Text></ul>
+          <ul><Text> Ya subiste {this.state.allPosts.length} posteos! Segui asi! </Text></ul>
         </li>
 
-        <View>
-          <FlatList
-            data={this.state.allComments}
-            keyExtractor={(data) => data.id.toString()}
-            renderItem={(item) => <allComments data={item} id={item.id} />}
-          />
-        </View>
+        
+
+        <FlatList
+        data={this.state.allPosts}
+        keyExtractor={posts => posts.id.toString()}
+        renderItem = { ({item})=> 
+        <Text>"{item.data.description}" de: 
+        <TouchableOpacity style={styles.content}>{item.data.owner}</TouchableOpacity> </Text>} 
+        />
 
 
         <TouchableOpacity onPress={() => this.signOut()}>
@@ -123,4 +107,20 @@ class Perfil extends Component {
     )
   }
 }
+const styles = StyleSheet.create({
+  content: {
+      
+      alignItems: 'center',
+      marginTop: 80, 
+      marginBottom: 60
+  },
+  container:{
+    flex:1,
+    padding: '4%',
+    backgroundColor: 'white'
+}
+
+})
+
+
 export default Perfil

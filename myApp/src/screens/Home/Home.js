@@ -32,16 +32,15 @@ class Home extends Component{
     }
 render(){
     return(
-        <View style={styles.hola}>
+        <View style={styles.container}>
         <Text style={styles.hola}>Home</Text>
         <FlatList
         data={this.state.allPosts}
         keyExtractor={posts => posts.id.toString()}
         renderItem = { ({item})=> 
-        <Text>"{item.data.description}"  de: 
+        <Text style={styles.content}>"{item.data.description}"  de: 
         <TouchableOpacity>{item.data.owner}</TouchableOpacity> </Text>} //<Post data = {item.data}/>} no funciona
         />
-
         </View>
     )
 }
@@ -50,7 +49,29 @@ render(){
 const styles = StyleSheet.create({
     hola: {
         fontSize: 20,
+    },
+    container:{
+        flex:1,
+        padding: '4%',
+        backgroundColor: 'white'
+    },
+    content: {
+        
+        alignItems: 'center',
+        marginTop: 80, 
+        marginBottom: 60
+    }, 
+    box: {
+        width: 150, 
+        height: 100, 
+        backgroundColor: 'white', 
+        marginBottom: 10
+
     }
+
 })
+        
+        
+    
 
 export default Home

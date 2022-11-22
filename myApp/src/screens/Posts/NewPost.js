@@ -1,6 +1,7 @@
 import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import {db, auth} from '../../firebase/config'
+import MyCamara from '../../components/Camara/Camara'
 
 class NewPost extends Component {
   constructor(props){
@@ -8,6 +9,8 @@ class NewPost extends Component {
       this.state = {
         comentario: '',
         description: '',
+        showCamara: true,
+        url: '',
         likes: []
     }
   }
@@ -16,6 +19,7 @@ class NewPost extends Component {
         owner: auth.currentUser.email,
         date: Date.now(),
         description: comentario,
+        photo: this.state.url,
         likes: [],
         comments: []
      
@@ -24,6 +28,12 @@ class NewPost extends Component {
         this.setState({comentario: ''})
     })
     .catch(err=> console.log(err))
+}
+onImageUpload(url){
+  this.setState({
+      url: url,
+      showCamera: false,
+  })
 }
 
 //  enviarPost(description){
@@ -43,7 +53,11 @@ class NewPost extends Component {
 
     render() {
     return (
+      this.state.showCamara ?
+          <MyCamara onImageUpload={url => this.onImageUpload(url)}/> 
+                :
       <View>
+        
         <Text>Crea tu posteo</Text>
         <TextInput
         keyboardType='default'
@@ -53,22 +67,13 @@ class NewPost extends Component {
         value={this.state.comentario}
         />
         <View>
-            <TouchableOpacity onPress={()=> this.enviarPost(this.state.comentario)}>
+            <TouchableOpacity onPress={()=> this.enviarPost(this.state.comentario) }>
             <Text>Subir Post</Text>
             </TouchableOpacity>
         </View>
-        {/* <TextInput
-        keyboardType='default'
-        placeholder='Deja tu descripcion'
-        onChangeText={text => this.setState({description: text})}
-        style= {styles.input}
-        value={this.state.description}
-        />
-        <TouchableOpacity
-        onPress={()=> this.enviarPost()}>
-            <Text>Enviar Post</Text>
-        </TouchableOpacity> */}
+      
       </View>
+      
     )
   }
 }
