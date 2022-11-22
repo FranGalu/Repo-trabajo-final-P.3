@@ -64,11 +64,91 @@ import {db, storage} from '../../firebase/config'
 
   render() {
     return (
-      <View>
-        <Text>Camara</Text>
-      </View>
-    )
-  }
+        <View style={styles.camera}>
+        { this.state.permission ?
+            this.state.showCamara ?
+            <View style={styles.camera}>
+                <Camara
+                    style={styles.camera}
+                    type= {Camara.Constants.Type.front}
+                    ref= {metodosCamara => this.metodosCamara = metodosCamara}
+                   /> 
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => this.tomarFoto()}>
+                    <Text>Tomar Foto</Text>    
+                </TouchableOpacity>   
+            </View>
+            :
+            <View style={styles.camera}>
+                <Image
+                style={styles.preview}
+                source={{uri:this.state.url}}
+                resizeMode='cover' 
+                />
+                <TouchableOpacity
+                styles={styles.buttonGuardar}
+                onPress={()=> this.guardarFoto()}>
+                    <Text style={styles.buttonText}>Guardar Foto</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                style={styles.buttonGuardar}
+                onPress={()=> this.eliminarPreview}>
+                    <Text style={styles.buttonText}>Eliminar</Text>
+                </TouchableOpacity>
+            </View>
+            :
+            <Text> No tengo permitido usar la camara</Text>
+        }
+        </View>
+        )}
+    
+    
+
 }
+
+const styles =StyleSheet.create({
+    camera: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
+        height: 250,
+        width: '80%',
+        marginBottom: '4%',
+        gap: 10
+    },
+    button:{
+        display: 'flex',
+        backgroundColor: 'white',
+        height: 50,
+        width: 150,
+        borderRadius: 25,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderColor: "black",
+        borderWith: 1,
+        padding: 5,
+        marginTop: 10
+    },
+    buttonGuardar: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        padding:3,
+        backgroundColor: 'red',
+        width: 100, 
+        height: 30
+    },
+    preview:{
+        height:'80%',
+        flex: 6, 
+        width: '100%',
+    },
+    buttonText: {
+        color: 'black'
+    },
+})
 
 export default MyCamara;
