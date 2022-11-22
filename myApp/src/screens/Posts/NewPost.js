@@ -53,7 +53,7 @@ onImageUpload(url){
 
     render() {
     return (
-      this.state.showCamera ?
+      this.state.showCamara ?
           <MyCamara onImageUpload={url => this.onImageUpload(url)}/> 
                 :
       <View>

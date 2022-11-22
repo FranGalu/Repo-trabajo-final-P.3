@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import{View,Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-import {Camara} from 'expo-camera';
+import {Camera} from 'expo-camera';
 import {db, storage} from '../../firebase/config'
 
 
@@ -16,7 +16,7 @@ import {db, storage} from '../../firebase/config'
         this.metodosCamara = ''
     }
     componentDidMount(){
-        Camara.requestCameraPermissionsAsync()
+        Camera.requestCameraPermissionsAsync()
             .then ( ()=> this.setState({
                 permission: true,
             })
@@ -68,9 +68,9 @@ import {db, storage} from '../../firebase/config'
         { this.state.permission ?
             this.state.showCamara ?
             <View style={styles.camera}>
-                <Camara
+                <Camera
                     style={styles.camera}
-                    type= {Camara.Constants.Type.front}
+                    type= {Camera.Constants.Type.front}
                     ref= {metodosCamara => this.metodosCamara = metodosCamara}
                    /> 
                 <TouchableOpacity
