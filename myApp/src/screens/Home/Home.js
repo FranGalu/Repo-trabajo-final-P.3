@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, FlatList, ActivityIndicator,TouchableOpa
 import React, {Component} from 'react'
 import { db } from '../../firebase/config';
 import NewPost from '../Posts/NewPost';
+import Post from '../../components/Posts/Post';
 // import {db} from '../../firebase/config'
 
 class Home extends Component{

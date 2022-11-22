@@ -1,8 +1,9 @@
-import { Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity} from 'react-native'
 import React, { Component } from 'react'
 import { db, auth } from '../../firebase/config'
 import firebase from 'firebase'
 import {FontAwesome} from '@expo/vector-icons'
+import NewPost from '../../screens/Posts/NewPost'
 
 
 class Post extends Component {
@@ -11,7 +12,7 @@ class Post extends Component {
     this.state = {
         likeCount: props.data.likes.lenght,
         commentCount: props.data.comments.lenght,
-        myLike: false
+        myLike: false //arranca en false para tener el boton Like presente
     }
 }
 
@@ -57,11 +58,18 @@ render(){
     return(
         <View>
             <Text>{this.props.data.description}</Text>
-            <TouchableOpacity 
-            onPress={()=> this.props.navigation.navigate(
-            )}>
-
+            {
+                this.state.myLike ?
+                <TouchableOpacity onPress={()=> this.unlike()}>
+                <FontAwesome name='heart' color='pink' size={15} />
             </TouchableOpacity>
+            : //si es false, que aparezca like
+            <TouchableOpacity onPress={()=> this.like()}>
+                <FontAwesome name='heart-o' color='black' size={15} />
+            </TouchableOpacity>
+            }
+            
+            
         </View>
     )
 }
