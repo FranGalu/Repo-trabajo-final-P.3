@@ -1,48 +1,85 @@
-import { Text, View } from 'react-native'
+import { Text, View, FlatList, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import React, { Component } from 'react'
-import {db} from '../../firebase/config'
-
+import Post from '../../components/Posts/Post'
+import {FontAwesome} from '@expo/vector-icons'
+import {db, auth} from '../../firebase/config'
+import firebase from 'firebase'
 //tengo que entender como usa las props para lograr tener el email del usuario amigo.
 
 class ProfileFriends extends Component {
-    // constructor(props){
-    //     super(props)
-    //     console.log(props)
-    //     this.state = {
-    //         mailFriend:props.route.params.email,
-    //         postsFriend:[]
-    //     }
-    // }
+  
+    constructor(props){
+        super(props)
+        console.log(props)
+        this.state = {
+            mailFriend: props.route.params.email,
+            userFriend:[],
+            postsFriend:[]
+        }
+    }
 
-//     componentDidMount(){
-//         db
-//         .collection('posts')
-//         .where('owner', '==', this.state.mailFriend)
-//         .onSnapshot(docs => {
-//             let posts = []
-//             docs.forEach(doc => posts.push({
-//                 id:doc.id,
-//                 data: doc.data()
-//             }))
-//             this.setState({
-//                 postsFriend: posts
-//             }, ()=> console.log(this.state.postsFriend))
-//         })
-//     }
+    componentDidMount(){
+        db
+        .collection('posts')
+        .where('owner', '==', this.state.mailFriend)
+        .onSnapshot(docs => {
+            let posts = []
+            docs.forEach(doc => posts.push({
+                id:doc.id,
+                data: doc.data()
+            }))
+            this.setState({
+                postsFriend: posts
+            }, ()=> console.log(this.state.postsFriend))
+        })
+      
+      db.collection('users').where('owner', '==', this.state.mailFriend).onSnapshot(docs => {
+        let users = []
+        docs.forEach(doc => {
+          users.push({
+            id: doc.id,
+            data: doc.data()
+          })
+        })
+  
+        this.setState({
+          userFriend: users,
+        },
+        () => console.log(this.state.userFriend)
+        )
+      })
+    }
   render() {
+    console.log(this.props)
     return (
-      <View>
-        <Text>ProfileFriends</Text>
+      <View style={styles.container}>
+
+        <li>
+          <ul><Text>Su mail: {this.state.mailFriend} </Text></ul>
+          <ul><Text>Tu amigo tiene {this.state.postsFriend.length} posteos!</Text></ul>
+        </li>
+
+       <FlatList
+                data={ this.state.postsFriend}
+                keyExtractor={ item => item.id.toString() }
+                renderItem={({item}) => <Post navigation={this.props.navigation} data={item.data} id={item.id}/>} 
+            /> 
 
 {/* //Nombre de usuario. 
-// Email del usuario.
 // Mini bio (si la cargó al registrarse).
 // Foto de perfil (si cargó una al registrarse).
-// La cantidad total de posteos publicados por el usuario.
-// Mostrar todos los posteos del usuario.  */}
+  */}
       </View>
     )
   }
 }
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    padding: '4%',
+    backgroundColor: 'white'
+}
+
+})
 
 export default ProfileFriends

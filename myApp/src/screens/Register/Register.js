@@ -13,11 +13,13 @@ export class Register extends Component {
                     email:'',
                     pass:'',
                     bio: '',
-                    imgPerfil:''
+                    imgPerfil: '',
+                    error: ''
                 }
             }
         
-        registroUsuario(username, email, pass, bio, imgPerfil){
+        registroUsuario(username, email, pass, bio, imgPerfil, error){
+            if(email.includes('@') && username.length>=4 && pass.length>=6){
                 auth.createUserWithEmailAndPassword(email, pass)
                 .then(()=> {
                     return(
@@ -31,7 +33,14 @@ export class Register extends Component {
                     )
                 })
                 .then(resp => this.props.navigation.navigate('Home'))
-                .catch(err => console.log(err)) 
+                .catch(err => this.setState({error: err.message})) 
+            } else if(username.length <= 4){
+                this.setState({error:'El nombre de usuario requiere un minimo de 4 caracteres'})
+            } else if (!email.includes('@')){
+                this.setState({error:'El mail no esta completo'})        
+            } else if (pass.length <= 6){
+                this.setState({error:'La contraseña requiere un minimo de 6 caracteres'})        
+            }
             }
 
             buscarImagen(){
@@ -65,6 +74,7 @@ export class Register extends Component {
                 /> */}
              <View>
                 <Text>Register</Text>
+                <Text style={styles.error}>{this.state.error}</Text>
                 <TextInput
                 style={styles.input}
                 keyboardType='default'
@@ -131,6 +141,9 @@ const styles = StyleSheet.create({
     },
     image:{
         height: '100%'
+    },
+    error:{
+        color: 'red'
     }
   })
 
