@@ -3,10 +3,7 @@ import React, { Component } from 'react'
 import { auth, db } from '../../firebase/config'
 
 
-
-// Mini bio (si la cargó al registrarse). X
-// Foto de perfil (si cargó una al registrarse). X
-
+//a los usuarios nuevos no les aparece su nombre de usuario :(
 
 class Perfil extends Component {
 
@@ -53,6 +50,12 @@ class Perfil extends Component {
     auth.signOut()
     this.props.navigation.navigate('Login')
   }
+
+  deletePost(){
+
+    db.collection('posts').doc(this.props.data.id).delete();
+}
+
   render() {
     return (
       <View style={styles.container}>
@@ -73,8 +76,7 @@ class Perfil extends Component {
         data={this.state.allPosts}
         keyExtractor={posts => posts.id.toString()}
         renderItem = { ({item})=> 
-        <Text style={styles.content}>"{item.data.description}" de: 
-       {item.data.owner} </Text>} 
+        <Text style={styles.content}>"{item.data.description}" de: </Text>} 
         />
 
 
