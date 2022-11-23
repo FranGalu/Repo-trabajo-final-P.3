@@ -33,7 +33,7 @@ class NewPost extends Component {
 onImageUpload(url){
   this.setState({
       url: url, //nos llega por parametro la url
-      showCamra: false,
+      showCamara: false,
   })
 }
 
@@ -70,7 +70,7 @@ onImageUpload(url){
           value={this.state.comentario} 
         />
         <View>
-            <TouchableOpacity disabled={this.state.comentario.length===0?true:false} onPress={()=> this.enviarPost() }>
+            <TouchableOpacity onPress={()=> this.enviarPost(this.state.comentario) }>
             <Text>Subir Post</Text>
             </TouchableOpacity>
         </View>
