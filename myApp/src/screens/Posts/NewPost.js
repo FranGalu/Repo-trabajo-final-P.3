@@ -53,10 +53,11 @@ onImageUpload(url){
 
     render() {
     return (
-      this.state.showCamara ?
+      //this.state.showCamara
+       <View>
           <MyCamara onImageUpload={url => this.onImageUpload(url)}/> 
-                :
-      <View>
+                
+      
         
         <Text>Crea tu posteo</Text>
         <TextInput

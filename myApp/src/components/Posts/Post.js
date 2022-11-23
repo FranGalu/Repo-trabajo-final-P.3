@@ -74,7 +74,7 @@ render(){
         <Image
             style={styles.image}
             resizeMode='center'
-            source={{uri:this.props.data.url}}
+            source={{uri:this.props.data.photo}}
         />
         </TouchableOpacity>
             </View>
