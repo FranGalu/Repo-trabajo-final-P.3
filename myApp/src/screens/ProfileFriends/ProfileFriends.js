@@ -4,7 +4,6 @@ import Post from '../../components/Posts/Post'
 import {FontAwesome} from '@expo/vector-icons'
 import {db, auth} from '../../firebase/config'
 import firebase from 'firebase'
-//tengo que entender como usa las props para lograr tener el email del usuario amigo.
 
 class ProfileFriends extends Component {
   
@@ -13,14 +12,13 @@ class ProfileFriends extends Component {
         console.log(props)
         this.state = {
             mailFriend: props.route.params.email,
-            userFriend:[],
+            userFriend:[], //deberia ser un objeto literal?
             postsFriend:[]
         }
     }
 
     componentDidMount(){
-        db
-        .collection('posts')
+        db.collection('posts')
         .where('owner', '==', this.state.mailFriend)
         .onSnapshot(docs => {
             let posts = []
