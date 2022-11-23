@@ -54,7 +54,7 @@ class Post extends Component {
 // }
 deletePost(){
 
-    db.collection("posts").doc(this.props.data.id).delete();
+    db.collection('posts').doc(this.props.data.id).delete();
 }
 
 render(){
