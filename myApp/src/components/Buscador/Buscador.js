@@ -10,7 +10,7 @@ class Buscador extends Component {
     this.state = {
       buscar: '',
       guardarValor: '',
-      backup: '',
+      lista: '',
       mensaje: '',
     }
   }
@@ -28,7 +28,7 @@ class Buscador extends Component {
 
         this.setState({
           guardarValor: search,
-          backup: search,
+          lista: search,
 
         })
 
@@ -38,7 +38,7 @@ class Buscador extends Component {
 
   buscarData(valor) {
 
-    let userFiltrado = this.state.backup.filter(elm => {
+    let userFiltrado = this.state.lista.filter(elm => {
       if (elm.data.email.includes(valor)) {
         return elm
       }
@@ -53,8 +53,7 @@ class Buscador extends Component {
     }
      else {
       this.setState({
-        mensaje: 'No encontramos a tu amigo :(',
-        guardarValor: [],
+        mensaje: 'No encontramos a tu amigo :('
       })
     }
   }
