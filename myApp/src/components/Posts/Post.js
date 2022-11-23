@@ -69,11 +69,7 @@ render(){
               }
             }
           )}> 
-          { this.props.data.owner == auth.currentUser.email ?(
-                    <TouchableOpacity onPress={()=> this.deletePost()}>
-                        <Text style={styles.eliminar}>Eliminar Post</Text>
-                    </TouchableOpacity> 
-                    ):""}
+          
         <Text>Posteo de:{this.props.data.owner}</Text>
         <Image
             style={styles.image}
@@ -85,6 +81,11 @@ render(){
             <Text>{this.props.data.description}</Text>
             <View>
             <Text>{this.state.likeCount}</Text> 
+            { this.props.data.owner == auth.currentUser.email ?(
+                    <TouchableOpacity onPress={()=> this.deletePost()}>
+                        <Text style={styles.eliminar}>Eliminar Post</Text>
+                    </TouchableOpacity> 
+                    ):""}
                 
                 {/* {
                     this.state.myLike ?
