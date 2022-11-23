@@ -61,12 +61,7 @@ render(){
     return(
         <View style={styles.separator}>
             <View> 
-          { this.props.data.owner == auth.currentUser.email ?(
-                    <TouchableOpacity onPress={()=> this.deletePost()}>
-                        <Text style={styles.eliminar}>Eliminar Post</Text>
-                    </TouchableOpacity> 
-                    ):""}
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate(
+            <TouchableOpacity onPress={() => this.props.navigation.navigate(
             'HomeNavigation',
             {
               screen: 'ProfileFriends',

@@ -33,7 +33,7 @@ class ProfileFriends extends Component {
             }, ()=> console.log(this.state.postsFriend))
         })
       
-      db.collection('users').where('owner', '==', this.state.mailFriend).onSnapshot(docs => {
+      db.collection('users').where('email', '==', this.state.mailFriend).onSnapshot(docs => {
         let users = []
         docs.forEach(doc => {
           users.push({
@@ -56,6 +56,7 @@ class ProfileFriends extends Component {
 
         <li>
           <ul><Text>Su mail: {this.state.mailFriend} </Text></ul>
+      
           <ul><Text>Tu amigo tiene {this.state.postsFriend.length} posteos!</Text></ul>
         </li>
 
