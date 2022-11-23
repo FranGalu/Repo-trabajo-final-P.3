@@ -71,7 +71,7 @@ import {db, storage} from '../../firebase/config'
                 <Camera
                     style={styles.camera}
                     type= {Camera.Constants.Type.front}
-                    ref= {metodosCamara => this.metodosCamara = metodosCamara}
+                    ref= {metodos => this.metodosCamara = metodos} //mtodos lo que recibimos por parametros
                    /> 
                 <TouchableOpacity
                     style={styles.button}

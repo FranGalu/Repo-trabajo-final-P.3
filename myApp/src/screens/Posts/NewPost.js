@@ -53,12 +53,14 @@ onImageUpload(url){
 
     render() {
     return (
-      this.state.showCamara ?
-          <MyCamara onImageUpload={url => this.onImageUpload(url)}/> 
-                :
-      <View>
-        
-        <Text>Crea tu posteo</Text>
+      //this.state.showCamara
+       <View style={styles.container}>
+         {this.state.showCamara ?
+         
+         <MyCamara onImageUpload={url => this.onImageUpload(url)}/> 
+        : 
+        <View>
+          <Text>Crea tu posteo</Text>
         <TextInput
         keyboardType='default'
         placeholder='Escribi una descripcion!'
@@ -71,6 +73,10 @@ onImageUpload(url){
             <Text>Subir Post</Text>
             </TouchableOpacity>
         </View>
+        </View>
+        }       
+      
+        
       
       </View>
       
@@ -78,6 +84,10 @@ onImageUpload(url){
   }
 }
 const styles = StyleSheet.create({
+    container:{
+      flex: 1
+
+    },  
     input:{
         height: 64,
         borderWidth:1,

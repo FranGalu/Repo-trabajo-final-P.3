@@ -54,7 +54,7 @@ class Post extends Component {
 // }
 deletePost(){
 
-    db.collection("posts").doc(this.props.data.id).delete();
+    db.collection('posts').doc(this.props.data.id).delete();
 }
 
 render(){
@@ -74,19 +74,25 @@ render(){
                 email: this.props.data.owner
               }
             }
-          )} > 
+          )}> 
+          
         <Text>Posteo de:{this.props.data.owner}</Text>
         </TouchableOpacity>
         <Image
             style={styles.image}
             resizeMode='center'
-            source={{uri:this.props.data.url}}
+            source={{uri:this.props.data.photo}}
         />
 
             </View>
             <Text>{this.props.data.description}</Text>
             <View>
             <Text>{this.state.likeCount}</Text> 
+            { this.props.data.owner == auth.currentUser.email ?(
+                    <TouchableOpacity onPress={()=> this.deletePost()}>
+                        <Text style={styles.eliminar}>Eliminar Post</Text>
+                    </TouchableOpacity> 
+                    ):""}
                 
                 {/* {
                     this.state.myLike ?
