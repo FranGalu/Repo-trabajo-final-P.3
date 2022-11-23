@@ -108,7 +108,7 @@ render(){
 const styles = StyleSheet.create({
     separator:{
         borderBottomColor: '#ddd',
-        borderBottomWidth: 1,
+        borderBottomWidth: 2,
         marginBottom: 10,
         paddingHorizontal:20
     },
