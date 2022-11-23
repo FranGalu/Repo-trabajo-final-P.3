@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import{View,Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {Camera} from 'expo-camera';
-import {db, storage} from '../../firebase/config'
+import {storage} from '../../firebase/config'
 
 
 
