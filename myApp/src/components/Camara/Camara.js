@@ -84,7 +84,7 @@ import {db, storage} from '../../firebase/config'
                 <Image
                 style={styles.preview}
                 source={{uri:this.state.url}}
-                resizeMode='cover' 
+                resizeMode='cover'  //igual cover llega por default
                 />
                 <TouchableOpacity
                 styles={styles.buttonGuardar}
@@ -142,9 +142,10 @@ const styles =StyleSheet.create({
         height: 30
     },
     preview:{
-        height:'80%',
+        height:400,
+        alignContent: "center",
         flex: 6, 
-        width: '100%',
+        width: 400,
     },
     buttonText: {
         color: 'black'
