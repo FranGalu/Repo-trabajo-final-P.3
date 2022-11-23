@@ -81,6 +81,8 @@ class Perfil extends Component {
         <TouchableOpacity onPress={() => this.signOut()}>
           <text> Cerrar tu sesión</text>
         </TouchableOpacity>
+
+
       </View>
     )
   }

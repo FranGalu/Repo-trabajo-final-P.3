@@ -70,7 +70,6 @@ render(){
               }
             }
           )}> 
-          
         <Text>Posteo de:{this.props.data.owner}</Text>
         </TouchableOpacity>
         <Image
