@@ -17,15 +17,15 @@ class NewPost extends Component {
         owner: auth.currentUser.email,
         date: Date.now(),
         description: comentario,
-        photo: this.state.url,
+        url: this.state.url,
         likes: [],
         comments: []
     })
     .then(()=>{
         this.setState({
           comentario: '',
-          showCamara: true, 
-          url: ''
+          // showCamara: true, 
+          // url: ''
         })
     })
     .catch(err=> console.log(err))
@@ -33,7 +33,7 @@ class NewPost extends Component {
 onImageUpload(url){
   this.setState({
       url: url, //nos llega por parametro la url
-      showCamera: false,
+      showCamra: false,
   })
 }
 
@@ -58,19 +58,19 @@ onImageUpload(url){
        <View style={styles.container}>
          {this.state.showCamara ?
          
-         <MyCamara navigation={this.props.navigation} onImageUpload={(url) => this.onImageUpload(url)}/> 
+         <MyCamara onImageUpload={(url) => this.onImageUpload(url)}/> 
         : 
         <View>
           <Text>Crea tu posteo</Text>
         <TextInput
-        keyboardType='default'
-        placeholder='Escribi una descripcion!'
-        onChangeText={text => this.setState({comentario: text})} //modifica el estado de mi description
-        style= {styles.input}
-        value={this.state.comentario} 
+          keyboardType='default'
+          placeholder='Escribi una descripcion!'
+          onChangeText={text => this.setState({comentario: text})} //modifica el estado de mi description
+          style= {styles.input}
+          value={this.state.comentario} 
         />
         <View>
-            <TouchableOpacity onPress={()=> this.enviarPost(this.state.comentario) }>
+            <TouchableOpacity disabled={this.state.comentario.length===0?true:false} onPress={()=> this.enviarPost() }>
             <Text>Subir Post</Text>
             </TouchableOpacity>
         </View>

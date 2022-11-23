@@ -13,7 +13,7 @@ import {storage} from '../../firebase/config'
             showCamara: true,
             url: ''
         }
-        this.metodosCamara = ''
+        this.metodosDeCamara = ''
     }
     componentDidMount(){
         Camera.requestCameraPermissionsAsync()
@@ -24,7 +24,7 @@ import {storage} from '../../firebase/config'
             .catch(err => console.log(err))
     }
     tomarFoto(){
-        this.metodosCamara.takePictureAsync()
+        this.metodosDeCamara.takePictureAsync()
             .then( photo => {
                 this.setState({
                     //obtengo la url temporal para guardarla en un estado
@@ -71,7 +71,7 @@ import {storage} from '../../firebase/config'
                 <Camera
                     style={styles.camera}
                     type= {Camera.Constants.Type.front}
-                    ref= {metodos => this.metodosCamara = metodos} //mtodos lo que recibimos por parametros
+                    ref= {metodosDeCamara => this.metodosDeCamara = metodosDeCamara} //mtodos lo que recibimos por parametros
                    /> 
                 <TouchableOpacity
                     style={styles.button}
