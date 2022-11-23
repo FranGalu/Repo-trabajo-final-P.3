@@ -138,5 +138,5 @@ const styles = StyleSheet.create({
 })
 
 
-
+//post
 export default Post
