@@ -79,7 +79,7 @@ class Perfil extends Component {
         data={this.state.allPosts}
         keyExtractor={posts => posts.id.toString()}
         renderItem = { ({item})=> 
-        <Post navigation={this.props.navigation} data={item.data} id={item.id}/>} 
+        <Post data={item.data} id={item.id}/>} 
         />
 
 
