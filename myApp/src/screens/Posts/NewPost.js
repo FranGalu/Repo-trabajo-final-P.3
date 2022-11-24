@@ -61,7 +61,7 @@ onImageUpload(url){
          <MyCamara onImageUpload={(url) => this.onImageUpload(url)}/> 
         : 
         <View>
-          <Text>Crea tu posteo</Text>
+          <Text style={styles.title}>Crea tu posteo</Text>
         <TextInput
           keyboardType='default'
           placeholder='Escribi una descripcion!'
@@ -70,7 +70,7 @@ onImageUpload(url){
           value={this.state.comentario} 
         />
         <View>
-            <TouchableOpacity onPress={()=> this.enviarPost(this.state.comentario) }>
+            <TouchableOpacity style={styles.button} onPress={()=> this.enviarPost(this.state.comentario) }>
             <Text>Subir Post</Text>
             </TouchableOpacity>
         </View>
@@ -86,12 +86,38 @@ onImageUpload(url){
 }
 const styles = StyleSheet.create({
     container:{
-      flex: 1
-
+      
+      height: '100%',
+      display: 'flex',
+      marginTop: 10,
+      alignItems: 'center',
+      backgroundColor: 'white'
     },  
     input:{
-        height: 64,
+        height: 60,
+        width: 200,
         borderWidth:1,
-    }
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'pink'
+    },
+    title:{
+      fontFamily: 'arial',
+      textAlign: 'center',
+      marginBottom: 15,
+      fontSize: 30,
+      color: 'black'
+    },
+    button: {
+      display: "flex", 
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 5,
+      backgroundColor: 'purple',
+      width: 100, 
+      height: 30
+  }
+
 })
 export default NewPost
