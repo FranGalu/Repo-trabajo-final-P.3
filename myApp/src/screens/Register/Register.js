@@ -1,8 +1,6 @@
 
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, RecyclerViewBackedScrollView, RefreshControlComponent, requireNativeComponent } from 'react-native'
 import { auth, db } from '../../firebase/config'
-import {storage} from '../../firebase/config'
-import * as ImagePicker from 'expo-image-picker'
 import React, { Component } from 'react'
 
 export class Register extends Component {
@@ -13,12 +11,11 @@ export class Register extends Component {
                     email:'',
                     pass:'',
                     bio: '',
-                    imgPerfil: {},
                     error: ''
                 }
             }
         
-        registroUsuario(username, email, pass, bio, imgPerfil, error){
+        registroUsuario(username, email, pass, bio, error){
             if(email.includes('@') && username.length>=4 && pass.length>=6){
                 auth.createUserWithEmailAndPassword(email, pass)
                 .then(()=> {
@@ -27,7 +24,6 @@ export class Register extends Component {
                             email: email,
                             username: username,
                             bio: bio,
-                            imgPerfil: this.state.imgPerfil,
                             createdAt: Date.now()
                         })
                     )
