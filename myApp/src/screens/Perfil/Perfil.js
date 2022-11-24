@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import React, { Component } from 'react'
 import { auth, db } from '../../firebase/config'
+import Post from '../../components/Posts/Post'
 
 
 //a los usuarios nuevos no les aparece su nombre de usuario :(
@@ -40,7 +41,9 @@ class Perfil extends Component {
           this.setState({
             id: doc.id,
             infoUser: doc.data()
-          }))
+          }),
+          () => console.log(this.state.infoUser)
+          )
       })
 
 
@@ -64,7 +67,7 @@ class Perfil extends Component {
 
         <li>
           <ul><Text > Bienvenido a tu perfil {this.state.infoUser.username}! </Text></ul>
-          <ul><Text> La biografia del usuario</Text></ul>
+          <ul><Text> descripcion: {this.state.infoUser.bio}</Text></ul>
           <ul><Text> Tu mail: {auth.currentUser.email} </Text> </ul>
           <ul><Text> Fecha de creación de tu perfil: {auth.currentUser.metadata.creationTime} </Text> </ul>
           <ul><Text> Ya subiste {this.state.allPosts.length} posteos! Segui asi! </Text></ul>
@@ -76,7 +79,7 @@ class Perfil extends Component {
         data={this.state.allPosts}
         keyExtractor={posts => posts.id.toString()}
         renderItem = { ({item})=> 
-        <Text style={styles.content}>"{item.data.description}" de: </Text>} 
+        <Post data={item.data} id={item.id}/>} 
         />
 
 
