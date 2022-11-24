@@ -8,31 +8,32 @@ class NewPost extends Component {
       super(props)
       this.state = {
         comentario: '',
-        description: '',
         showCamara: true,
         url: '',
-        likes: []
     }
   }
   enviarPost(comentario){
-    db.collection('posts').add({
+    db.collection('posts').add({  //en esta coleccion guardamos los documentos
         owner: auth.currentUser.email,
         date: Date.now(),
         description: comentario,
-        photo: this.state.url,
+        url: this.state.url,
         likes: [],
         comments: []
-     
     })
     .then(()=>{
-        this.setState({comentario: ''})
+        this.setState({
+          comentario: '',
+          // showCamara: true, 
+          // url: ''
+        })
     })
     .catch(err=> console.log(err))
 }
 onImageUpload(url){
   this.setState({
-      url: url,
-      showCamera: false,
+      url: url, //nos llega por parametro la url
+      showCamara: false,
   })
 }
 
@@ -57,16 +58,16 @@ onImageUpload(url){
        <View style={styles.container}>
          {this.state.showCamara ?
          
-         <MyCamara onImageUpload={url => this.onImageUpload(url)}/> 
+         <MyCamara onImageUpload={(url) => this.onImageUpload(url)}/> 
         : 
         <View>
           <Text>Crea tu posteo</Text>
         <TextInput
-        keyboardType='default'
-        placeholder='Escribi una descripcion!'
-        onChangeText={text => this.setState({comentario: text})}
-        style= {styles.input}
-        value={this.state.comentario}
+          keyboardType='default'
+          placeholder='Escribi una descripcion!'
+          onChangeText={text => this.setState({comentario: text})} //modifica el estado de mi description
+          style= {styles.input}
+          value={this.state.comentario} 
         />
         <View>
             <TouchableOpacity onPress={()=> this.enviarPost(this.state.comentario) }>

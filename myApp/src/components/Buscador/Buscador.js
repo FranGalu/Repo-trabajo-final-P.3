@@ -10,7 +10,7 @@ class Buscador extends Component {
     this.state = {
       buscar: '',
       guardarValor: '',
-      backup: '',
+      lista: '',
       mensaje: '',
     }
   }
@@ -28,7 +28,7 @@ class Buscador extends Component {
 
         this.setState({
           guardarValor: search,
-          backup: search,
+          lista: search,
 
         })
 
@@ -38,8 +38,8 @@ class Buscador extends Component {
 
   buscarData(valor) {
 
-    let userFiltrado = this.state.backup.filter(elm => {
-      if (elm.data.email.toLowerCase().includes(valor)) {
+    let userFiltrado = this.state.lista.filter(elm => {
+      if (elm.data.email.includes(valor)) {
         return elm
       }
     })
@@ -53,8 +53,7 @@ class Buscador extends Component {
     }
      else {
       this.setState({
-        mensaje: 'No encontramos a tu amigo :(',
-        guardarValor: [],
+        mensaje: 'No encontramos a tu amigo :('
       })
     }
   }
@@ -74,8 +73,7 @@ class Buscador extends Component {
           style={styles.container2}
           data={this.state.guardarValor}
           keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => 
-          <TouchableOpacity onPress={() => this.props.navigation.navigate(
+          renderItem={({ item }) => <TouchableOpacity onPress={() => this.props.navigation.navigate(
             'HomeNavigation',
             {
               screen: 'ProfileFriends',
@@ -83,7 +81,8 @@ class Buscador extends Component {
                 email: this.props.data.owner
               }
             }
-          )}>
+          )}> 
+         
             <Text style={styles.container3}>{item.data.email}</Text>
             </TouchableOpacity>
             }

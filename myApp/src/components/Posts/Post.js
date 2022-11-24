@@ -70,13 +70,12 @@ render(){
               }
             }
           )}> 
-          
         <Text>Posteo de:{this.props.data.owner}</Text>
         </TouchableOpacity>
         <Image
             style={styles.image}
             resizeMode='center'
-            source={{uri:this.props.data.photo}}
+            source={{uri:this.props.data.url}}
         />
 
             </View>

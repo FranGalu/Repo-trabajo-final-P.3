@@ -1,18 +1,11 @@
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import React, { Component } from 'react'
 import { auth, db } from '../../firebase/config'
-import Post from '../../components/Posts/Post'
 
 
-// Mini bio (si la cargó al registrarse). X
-// Foto de perfil (si cargó una al registrarse). X
-// Permitir borrar posteos. X
-
-
+//a los usuarios nuevos no les aparece su nombre de usuario :(
 
 class Perfil extends Component {
-
-  //falta pasar las props de navegacion para que cuando haga sign out mande al usuario a la pagina login
 
   constructor(props) {
     super(props)
@@ -52,19 +45,17 @@ class Perfil extends Component {
 
 
   }
-  // eliminar(){
-  //     db.collection('users').doc
-  //     .delete(
-
-  //     ).then(()=> 
-  //     this.props.navigation.navigate('Register'))
-
-  // }
 
   signOut() {
     auth.signOut()
     this.props.navigation.navigate('Login')
   }
+
+  deletePost(){
+
+    db.collection('posts').doc(this.props.data.id).delete();
+}
+
   render() {
     return (
       <View style={styles.container}>
@@ -85,8 +76,7 @@ class Perfil extends Component {
         data={this.state.allPosts}
         keyExtractor={posts => posts.id.toString()}
         renderItem = { ({item})=> 
-        <Text>"{item.data.description}" de: 
-        <TouchableOpacity style={styles.content}>{item.data.owner}</TouchableOpacity> </Text>} 
+        <Text style={styles.content}>"{item.data.description}" de: </Text>} 
         />
 
 
@@ -94,9 +84,6 @@ class Perfil extends Component {
           <text> Cerrar tu sesión</text>
         </TouchableOpacity>
 
-        {/* <TouchableOpacity onPress={ () => this.eliminar()}>
-                <Text>Eliminar perfil</Text>
-            </TouchableOpacity> */}
 
       </View>
     )
