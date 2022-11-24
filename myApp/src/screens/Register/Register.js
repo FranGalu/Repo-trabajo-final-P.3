@@ -13,7 +13,7 @@ export class Register extends Component {
                     email:'',
                     pass:'',
                     bio: '',
-                    imgPerfil: '',
+                    imgPerfil: {},
                     error: ''
                 }
             }
@@ -27,7 +27,7 @@ export class Register extends Component {
                             email: email,
                             username: username,
                             bio: bio,
-                            imgPerfil: imgPerfil,
+                            imgPerfil: this.state.imgPerfil,
                             createdAt: Date.now()
                         })
                     )
@@ -43,27 +43,7 @@ export class Register extends Component {
             }
             }
 
-            buscarImagen(){
-                ImagePicker.launchImageLibraryAsync()
-                .then(resp => {
-                    fetch(resp.uri)
-                    .then(data => data.blob())
-                    .then(img => {
-                        console.log(storage)
-                        const ref = storage.ref(`profilePics/${Date.now()}.jpg`)
-                        ref.put(img)
-                        .then(()=> {
-                            ref.getDownloadURL()
-                            .then(url => {
-                                    this.setState({profileImage:url})
-                                }
-                            )
-                        })
-                    })
-                    .catch(err => console.log(err))
-                })
-                .catch(err => console.log(err))
-            }
+            
 
     render() {
         return (
@@ -104,13 +84,9 @@ export class Register extends Component {
                 onChangeText={text => this.setState({bio: text})}
                 value={this.state.bio}
                 />
-                 <View>
-                    <TouchableOpacity onPress={()=> this.buscarImagen()}>
-                         <Text>Buscar imagen de perfil</Text>
-                    </TouchableOpacity>
-                    </View>
+            
                 <View>
-                     <TouchableOpacity onPress={()=> this.registroUsuario(this.state.username, this.state.email, this.state.pass)}>
+                     <TouchableOpacity onPress={()=> this.registroUsuario(this.state.username, this.state.email, this.state.pass, this.state.bio)} style={styles.botonR}>
                          <Text>Register</Text>
                      </TouchableOpacity>
                  </View>
@@ -134,7 +110,11 @@ const styles = StyleSheet.create({
       paddingHorizontal:24,
     },
     input:{
-        borderWidth:1
+        borderWidth:1,
+        borderRadius:35,
+        height:20,
+        paddingLeft:10,
+        marginTop:10
     },
     containerRedirect:{
         marginTop: 32
@@ -144,7 +124,17 @@ const styles = StyleSheet.create({
     },
     error:{
         color: 'red'
-    }
+    },
+    botonR:{
+        width:100,
+        height:20,
+        backgroundColor:'#DCC3F7',
+        textAlign:'center',
+        borderRadius:20,
+        alignItems:'center',
+        justifyContent:'center',
+        marginTop:10
+    },
   })
 
 export default Register
