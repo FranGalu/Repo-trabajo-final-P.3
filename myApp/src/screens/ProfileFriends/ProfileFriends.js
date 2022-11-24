@@ -12,7 +12,7 @@ class ProfileFriends extends Component {
         console.log(props)
         this.state = {
             mailFriend: props.route.params.email,
-            userFriend:{}, //deberia ser un objeto literal?
+            userFriend:{},
             postsFriend:[]
         }
     }
@@ -55,7 +55,7 @@ class ProfileFriends extends Component {
        <FlatList
                 data={ this.state.postsFriend}
                 keyExtractor={ item => item.id.toString() }
-                renderItem={({item}) => <Post navigation={this.props.navigation} data={item.data} id={item.id}/>} 
+                renderItem={({item}) => <Post data={item.data} id={item.id}/>} 
             /> 
 
 {/* //Nombre de usuario. 
