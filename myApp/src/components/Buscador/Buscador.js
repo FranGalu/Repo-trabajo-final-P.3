@@ -1,6 +1,8 @@
-import { Text, View, StyleSheet, FlatList, TextInput, TouchableOpacity } from 'react-native'
+import  {View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList} from 'react-native';
 import React, { Component } from 'react'
-import { db } from '../../firebase/config'
+import { db, auth} from '../../firebase/config'
+import firebase from 'firebase'
+import HomeNavigation from '../../navigation/HomeNavigation';
 
 class Buscador extends Component {
 
@@ -8,7 +10,8 @@ class Buscador extends Component {
     super(props)
     console.log(props)
     this.state = {
-      buscar: '',
+      buscar: '', 
+      perfilRedirect: 'ProfileFriends',
       guardarValor: '',
       lista: '',
       mensaje: '',
@@ -18,7 +21,7 @@ class Buscador extends Component {
     db.collection('users')
       .orderBy('createdAt', 'desc')
       .onSnapshot(docs => {
-        let search = []
+        let search = [] 
         docs.forEach(doc => {
           search.push({
             id: doc.id,
@@ -34,8 +37,6 @@ class Buscador extends Component {
 
       })
   }
-
-
   buscarData(valor) {
 
     let userFiltrado = this.state.lista.filter(elm => {
@@ -78,7 +79,7 @@ class Buscador extends Component {
             {
               screen: 'ProfileFriends',
               params: {
-                email: this.props.data.owner
+                email: item.data.email
               }
             }
           )}> 
