@@ -4,8 +4,8 @@ import { auth, db } from '../../firebase/config'
 import React, { Component } from 'react'
 
 export class Register extends Component {
-    constructor(){
-                super()
+    constructor(props){
+                super(props)
                 this.state={
                     username:'',
                     email:'',

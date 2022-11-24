@@ -37,24 +37,11 @@ onImageUpload(url){
   })
 }
 
-//  enviarPost(description){
-//         db.collection('posts').add({
-//             owner: auth.currentUser.email,
-//             date: Date.now(),
-//             description: description,
-//             likes: [],
-//             comments: []
-//         })
-//         .then(()=>{
-//             this.setState({description: ''})
-//         })
-//         .catch(err=> console.log(err))
-//     }
 
 
     render() {
     return (
-      //this.state.showCamara
+    
        <View style={styles.container}>
          {this.state.showCamara ?
          

@@ -9,7 +9,7 @@ class Post extends Component {
     constructor(props){
         super(props)
     this.state = {
-        //likeCount: this.props.data.likes.length,
+        // likeCount: this.props.data.likes.length,
         //commentCount: this.props.data.comments.length,
         myLike: false //arranca en false para tener el boton Like presente
     }
@@ -27,7 +27,7 @@ class Post extends Component {
 //     db.collection('posts')
 //     .doc(this.props.id)
 //     .update({
-//         likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) //actualiza arrays en firebase
+//         likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) //cuando descomento esta linea rompe!
 //     })
 //     .then(()=> {
 //         this.setState({
