@@ -2,6 +2,7 @@
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, RecyclerViewBackedScrollView, RefreshControlComponent, requireNativeComponent } from 'react-native'
 import { auth, db } from '../../firebase/config'
 import React, { Component } from 'react'
+import * as ImagePicker from 'expo-image-picker'
 
 export class Register extends Component {
     constructor(props){
@@ -11,7 +12,8 @@ export class Register extends Component {
                     email:'',
                     pass:'',
                     bio: '',
-                    error: ''
+                    error: '',
+                    profileImage:''
                 }
             }
         
@@ -39,15 +41,31 @@ export class Register extends Component {
             }
             }
 
-            
+            buscarImagen(){
+                ImagePicker.launchImageLibraryAsync()
+                .then(resp => {
+                    fetch(resp.uri)
+                    .then(data => data.blob())
+                    .then(img => {
+                        console.log(storage)
+                        const ref = storage.ref(`profilePics/${Date.now()}.jpg`)
+                        ref.put(img)
+                        .then(()=> {
+                            ref.getDownloadURL()
+                            .then(url => {
+                                    this.setState({profileImage:url})
+                                }
+                            )
+                        })
+                    })
+                    .catch(err => console.log(err))
+                })
+                .catch(err => console.log(err))
+            }
 
     render() {
         return (
             <View style={styles.container}>
-                {/* <Image style={styles.image}
-                source={{uri: 'https://images.pexels.com/photos/235994/pexels-photo-235994.jpeg?cs=srgb&dl=pexels-pixabay-235994.jpg&fm=jpg'}}
-                resizeMode='contain'
-                /> */}
              <View>
                 <Text>Register</Text>
                 <Text style={styles.error}>{this.state.error}</Text>
@@ -81,6 +99,10 @@ export class Register extends Component {
                 value={this.state.bio}
                 />
             
+            <TouchableOpacity onPress={()=> this.buscarImagen()}>
+                <Text style={styles.botonI}>Buscar imagen de perfil</Text>
+            </TouchableOpacity>
+
                 <View>
                      <TouchableOpacity onPress={()=> this.registroUsuario(this.state.username, this.state.email, this.state.pass, this.state.bio)} style={styles.botonR}>
                          <Text>Register</Text>
@@ -123,6 +145,16 @@ const styles = StyleSheet.create({
     },
     botonR:{
         width:100,
+        height:20,
+        backgroundColor:'#DCC3F7',
+        textAlign:'center',
+        borderRadius:20,
+        alignItems:'center',
+        justifyContent:'center',
+        marginTop:10
+    },
+    botonI:{
+        width:200,
         height:20,
         backgroundColor:'#DCC3F7',
         textAlign:'center',

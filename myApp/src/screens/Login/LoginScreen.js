@@ -7,7 +7,8 @@ class LoginScreen extends Component{
         super(props)
         this.state = {
             email:'',
-            pass:''
+            pass:'',
+            error:''
         }
     }
 
@@ -24,7 +25,7 @@ class LoginScreen extends Component{
         .then(response => {
             this.props.navigation.navigate('TabNavigation')
         })
-        .catch(err => console.log(err))
+        .catch(err => this.setState({error: err.message}))
     }
 
     render(){
@@ -32,6 +33,7 @@ class LoginScreen extends Component{
             <View style={styles.container}>
             <View>
                 <Text>Login</Text>
+                <Text style={styles.error}>{this.state.error}</Text>
                 <TextInput
                 style={styles.input}
                 keyboardType='email-address'
@@ -49,7 +51,7 @@ class LoginScreen extends Component{
                 />
                 <View>
                     <TouchableOpacity onPress={()=> this.login(this.state.email, this.state.pass)}>
-                        <Text>Log In</Text>
+                        <Text style={styles.boton}>Log In</Text>
                     </TouchableOpacity>
                 </View>
                 <View>
@@ -70,9 +72,26 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       paddingHorizontal:24
     },
-      input:{
-          borderWidth:1
-      }
+    input:{
+        borderWidth:1,
+        borderRadius:35,
+        height:20,
+        paddingLeft:10,
+        marginTop:10
+    },
+    boton:{
+        width:100,
+        height:20,
+        backgroundColor:'#DCC3F7',
+        textAlign:'center',
+        borderRadius:20,
+        alignItems:'center',
+        justifyContent:'center',
+        marginTop:10
+    },
+    error:{
+        color: 'red'
+    }
   })
 
 export default LoginScreen
